@@ -21,7 +21,6 @@ export class AdminService {
     const url = 'admin/activate/'+email;
     const body = {};
 
-    
     return this.httpService.sendPostRequest(url,body);
   }
   deactivateuser(email){
@@ -29,6 +28,7 @@ export class AdminService {
     const body = {};
     return this.httpService.sendPostRequest(url,body);
   }
+  
   changerole(email,role){
     const url = 'admin/deactivate';
     const body = {email: email,role:role};

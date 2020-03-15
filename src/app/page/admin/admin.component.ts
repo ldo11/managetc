@@ -13,6 +13,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.reload_user();
+    
   }
   reload_user(){
     this.adminService.getalluser().then((Users: Array<User>) => {
@@ -29,4 +30,13 @@ export class AdminComponent implements OnInit {
     this.adminService.deactivateuser(email);
     this.reload_user();
   }
+
+  changerole(email,role){
+    this.adminService.changerole(email,role);
+    this.reload_user();
+  }
+
 }
+
+
+

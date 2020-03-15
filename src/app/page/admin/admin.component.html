@@ -1,8 +1,16 @@
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <table>
   <tr>
     <th>ID</th>
     <th>Email</th>
     <th>Role</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th>New Role</th>
     <th></th>
   </tr>
   <tr *ngFor="let user of users">
@@ -12,5 +20,8 @@
     <td>{{user.status}}</td>
     <td><button (click)=activate(user.email)>Activate</button></td>
     <td><button (click)=deactivate(user.email)>Deactivate</button></td>
+    <td>
+      <input type="text"  placeholder='enter new role'class="form-control"/>
+  </td>
   </tr>
 </table>
