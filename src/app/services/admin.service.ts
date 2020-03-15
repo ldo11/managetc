@@ -16,13 +16,17 @@ export class AdminService {
     return this.httpService.sendGetRequest(url,{});
   }
   activateuser(email){
-    const url = 'admin/activate';
-    const body = {email: email};
+
+
+    const url = 'admin/activate/'+email;
+    const body = {};
+
+    
     return this.httpService.sendPostRequest(url,body);
   }
   deactivateuser(email){
-    const url = 'admin/deactivate';
-    const body = {email: email};
+    const url = 'admin/deactivate/'+email;
+    const body = {};
     return this.httpService.sendPostRequest(url,body);
   }
   changerole(email,role){

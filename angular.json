@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "managetc": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "managetc"
+    }
+  },
+  "defaultProject": "managetc",
+  "cli": {
+    "analytics": "898dbb60-7e77-4778-8782-7b8a3776775a"
+  }
 }

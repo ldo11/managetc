@@ -12,10 +12,21 @@ export class AdminComponent implements OnInit {
     private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.reload_user();
+  }
+  reload_user(){
     this.adminService.getalluser().then((Users: Array<User>) => {
       console.dir(Users);
       this.users = Users;
-    });
+    })
+  }
+  activate(email){
+    this.adminService.activateuser(email);
+    this.reload_user();
   }
 
+  deactivate(email){
+    this.adminService.deactivateuser(email);
+    this.reload_user();
+  }
 }
