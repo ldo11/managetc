@@ -7,6 +7,10 @@
     <th>ID</th>
     <th>Email</th>
     <th>Role</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th>New Role</th>
     <th></th>
   </tr>
   <tr *ngFor="let user of users">
@@ -16,11 +20,8 @@
     <td>{{user.status}}</td>
     <td><button (click)=activate(user.email)>Activate</button></td>
     <td><button (click)=deactivate(user.email)>Deactivate</button></td>
-<td>
-    <div class="col-md-8 form-group">
-      <label>new role</label>
-      <input type="text" class="form-control"/>
-    </div>
+    <td>
+      <input type="text"  placeholder='enter new role'class="form-control"/>
   </td>
   </tr>
 </table>
