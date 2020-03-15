@@ -9,5 +9,8 @@
     <td>{{user._id}}</td>
     <td>{{user.email}}</td>
     <td>{{user.role}}</td>
+    <td>{{user.status}}</td>
+    <td><button (click)=activate(user.email)>Activate</button></td>
+    <td><button (click)=deactivate(user.email)>Deactivate</button></td>
   </tr>
 </table>
