@@ -29,4 +29,13 @@ export class AdminComponent implements OnInit {
     this.adminService.deactivateuser(email);
     this.reload_user();
   }
+
+  changerole(email,role){
+    this.adminService.changerole(email,role);
+    this.reload_user();
+  }
+
 }
+
+
+
