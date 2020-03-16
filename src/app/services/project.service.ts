@@ -31,6 +31,12 @@ export class ProjectsService {
     return this.httpService.sendGetRequest(url, body);
   }
 
+  findprojectbyname(projectName){
+    const url = 'projects/' + projectName;
+    const body = {};
+    return this.httpService.sendGetRequest(url,body);
+  }
+
   addtester(projectname) {
     const url = 'projects/addtester';
     const body = {name: projectname};
