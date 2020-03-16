@@ -8,4 +8,9 @@ export class Testcase {
   creator: string;
   reviewer: string;
   steps: Step[];
+  constructor(name, p, c) {
+    this.name = name;
+    this.project_name = p;
+    this.creator = c;
+  }
 }

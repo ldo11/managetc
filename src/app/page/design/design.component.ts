@@ -56,7 +56,10 @@ export class DesignComponent implements OnInit {
       return value._id !== ele._id;
     });
     console.log(ele._id);
-    this.designService.removestep(ele._id).then();
+    this.designService.removeStep(this.currenttc._id, ele._id).then();
+  }
+  changeproject(p) {
+    this.loadtc(p);
   }
 
 }

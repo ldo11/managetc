@@ -1,25 +1,39 @@
 
-<table>
-  <tr>
-    <th><h2>project detail</h2></th>
-    <th></th>
-  </tr>
-  
-  <tr>
-
-  <td>PROJECT NAME</td>
-    <td><mat-form-field appearance="fill">
-      <mat-label>Enter Project Name</mat-label>
-      <input matInput>
+<h4>Project Management</h4>
+<mat-card>
+  <mat-form-field>
+  <input matInput #newtc placeholder="Create new project here">
+  <button mat-button (click)="addproject(newtc.value)"> Create </button>
     </mat-form-field>
-  </td>
-  </tr>
- <tr><td>List of Testers for the Project</td> </tr>
- 
- <tr>
-  
-</tr>
- <td>
-  <button mat-button >AddProject</button> 
- </td>
- </table>
+</mat-card>
+<mat-card>
+<mat-table [dataSource]="projects">
+  <ng-container matColumnDef="Project">
+    <mat-header-cell *matHeaderCellDef> Project </mat-header-cell>
+    <mat-cell *matCellDef="let element;">{{element.name}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Tester">
+    <mat-header-cell *matHeaderCellDef> Tester </mat-header-cell>
+    <mat-cell *matCellDef="let element;">{{element.testers|grouptester}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ADDT">
+    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+    <mat-cell *matCellDef="let element;">
+      <mat-select #newemail placeholder="Select user">
+        <mat-option *ngFor="let e of emails" [value]="e.email">{{e.email}}</mat-option>
+      </mat-select>
+      <button mat-button (click)="add( element.name, newemail.value)">Add</button>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ATC">
+    <mat-header-cell *matHeaderCellDef> Add Teste Case </mat-header-cell>
+    <mat-cell *matCellDef="let element;">
+      <input matInput placeholder="New testcase" #newtc>
+      <button mat-button (click)="addtc( element.name, newtc.value)">Add</button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+</mat-card>
+

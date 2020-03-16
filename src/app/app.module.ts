@@ -20,6 +20,7 @@ import { PageNotFoundComponent } from './page/page-not-found/page-not-found.comp
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {CdkTableModule} from '@angular/cdk/table';
+import { GrouptesterPipe } from './pipe/grouptester.pipe';
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
     DesignComponent,
     ExecutionComponent,
     ProjectComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    GrouptesterPipe
   ],
   imports: [
     RouterModule.forRoot(

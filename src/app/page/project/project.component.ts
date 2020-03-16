@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ProjectsService  } from '../../services/project.service';
 
+import {Component, OnInit, ViewChild} from '@angular/core';
 
+import {ProjectsService} from '../../services/project.service';
+import {DesignService} from '../../services/design.service';
+import {MatTable} from '@angular/material/table';
+import {Project} from '../../models/project';
+import {FormControl} from '@angular/forms';
+import {Testcase} from '../../models/testcase';
 
 @Component({
   selector: 'app-project',
@@ -10,23 +14,35 @@ import { ProjectsService  } from '../../services/project.service';
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
-  testerList:Array<string>;
-  
+  currentuser = 'abc@gmail.com';
+  Testerselect = new FormControl();
+  projects: Array<Project>;
+  emails: Array<string>;
+  emailInproject: Array<string>;
+  displayedColumns = ['Project', 'Tester', 'ADDT', 'ATC'];
+  @ViewChild(MatTable, { static: true}) table: MatTable<any>;
+  constructor(private projectService: ProjectsService, private designService: DesignService) { }
 
-  projectForm: any;
-  constructor(private formBuilder: FormBuilder, private projectService: ProjectsService ) {
-    
-
-}ngOnInit(): void {
-
-  this.projectForm = this.formBuilder.group({
-    name : ['', Validators.required],
-    tester: ['', [Validators.required]]
-  })
-  this.projectService.findallemal().then((testers: Array<string>) => {
-    this.testerList = testers;
-    
-    
-  });
-}
+  ngOnInit(): void {
+    this.projectService.findallprojects().then((Projects: Array<Project>) => {
+      this.projects = Projects;
+      this.projectService.findallemail().then((Email: Array<string>) => {
+        this.emails = Email;
+      });
+    });
+  }
+  add(p, email) {
+    this.projectService.addtester(p, email).then(_ => this.loadproject());
+  }
+  loadproject() {
+    this.projectService.findallprojects().then((Projects: Array<Project>) => {
+      this.projects = Projects;
+    });
+  }
+  addproject(p) {
+    this.projectService.addproject(p).then(_ => this.loadproject());
+  }
+  addtc(p, tc) {
+    this.designService.addtestcase(new Testcase(tc, p, this.currentuser)).then();
+  }
 }
