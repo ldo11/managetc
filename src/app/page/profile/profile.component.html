@@ -10,7 +10,7 @@
         <div class="profile-img">
           <img src="../../images/tester1.jpg" alt="" class="img-circle" style="width:100%"/>
           <div class="file btn btn-secondary">
-            <input type="file" name="avatar" ngModel name="avartar"/>
+            <input type="file" class="form-control-file" ngModel name="avartar"/>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="col-md-8 form-group">
-          <label>Project*</label>
+          <label>Project</label>
           <input type="text" class="form-control" [ngModel]="profile.project" name="project" readonly/>
         </div>
         <button type="submit" class="btn btn-primary" >Update</button>
