@@ -21,6 +21,9 @@ import { PageNotFoundComponent } from './page/page-not-found/page-not-found.comp
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'project', component: ProjectComponent },
+  { path: 'design', component: DesignComponent },
+  { path: 'execution', component: ExecutionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', component: PageNotFoundComponent }
