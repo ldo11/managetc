@@ -35,7 +35,6 @@ export class AdminComponent implements OnInit {
     this.adminService.changerole(email,role);
     this.reload_user();
   }
-
 }
 
 

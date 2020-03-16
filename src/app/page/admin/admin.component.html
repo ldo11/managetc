@@ -1,7 +1,4 @@
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <table>
   <tr>
     <th>ID</th>
@@ -14,14 +11,50 @@
     <th></th>
   </tr>
   <tr *ngFor="let user of users">
-    <td>{{user._id}}</td>
-    <td>{{user.email}}</td>
-    <td>{{user.role}}</td>
-    <td>{{user.status}}</td>
-    <td><button (click)=activate(user.email)>Activate</button></td>
-    <td><button (click)=deactivate(user.email)>Deactivate</button></td>
+    
     <td>
-      <input type="text"  placeholder='enter new role'class="form-control"/>
-  </td>
+      <mat-form-field>
+        <input matInput [value]="user._id">
+      </mat-form-field>
+    </td>
+    
+    <td>
+      <mat-form-field>
+        <input matInput [value]="user.email">
+      </mat-form-field>
+    </td>
+    
+    <td>
+      <mat-form-field>
+        <input matInput [value]="user.role">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <input matInput [value]="user.status">
+      </mat-form-field>
+    </td>
+
+    
+    <td>
+      <button mat-button (click)=activate(user.email) >Activate</button>
+    </td>
+    <td>
+      <button mat-button (click)=deactivate(user.email)  >Deactivate</button>
+    </td>
+
+      <td>
+  <mat-form-field>
+    <select matNativeControl required>
+      <option value="Tester">Tester</option>
+      <option value="Senior Tester">Senior Tester</option>
+     
+    </select>
+  </mat-form-field>
+    </td>
+    <td>
+      <button mat-button (click)=changerole(user.email,user.role)  >UPDATE_ROLE</button>
+    </td>
   </tr>
+ 
 </table>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {LogService} from './log.service';
 import {HttpService} from './http.service';
+import { request } from 'http';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,9 @@ export class AdminService {
     const body = {};
     return this.httpService.sendPostRequest(url,body);
   }
-  
+
   changerole(email,role){
-    const url = 'admin/deactivate';
+    const url = 'admin/role/'+email;
     const body = {email: email,role:role};
     return this.httpService.sendPostRequest(url,body);
   }
