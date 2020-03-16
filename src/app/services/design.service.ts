@@ -8,47 +8,47 @@ import {HttpService} from './http.service';
 export class DesignService {
 
   constructor(private logger: LogService,
-    private httpService: HttpService) {
+              private httpService: HttpService) {
 
 }
 
 
-findprojectbyname(projectname){
-  const url = 'design/p/'+projectname;
+findprojectbyname(projectname) {
+  const url = 'design/p/' + projectname;
   const body = {};
-  return this.httpService.sendGetRequest(url,body);
+  return this.httpService.sendGetRequest(url, body);
 }
 
 
-findtestcasebyname(tcname){
-  const url = 'design/n/'+tcname;
+findtestcasebyname(tcname) {
+  const url = 'design/n/' + tcname;
   const body = {};
-  return this.httpService.sendGetRequest(url,body);
+  return this.httpService.sendGetRequest(url, body);
 }
 
 
-addtestcase(testcasedetail){
+addtestcase(testcasedetail) {
   const url = 'design';
-  return this.httpService.sendPostRequest(url,testcasedetail);
+  return this.httpService.sendPostRequest(url, testcasedetail);
 }
 
 
-updatetestcase(name,body){
-  const url = 'design/update/'+name;
-  return this.httpService.sendPostRequest(url,body);
+updatetestcase(name, body) {
+  const url = 'design/update/' + name;
+  return this.httpService.sendPostRequest(url, body);
 }
 
-addteststep(name,body){
-  const url = 'design/addstep/'+name;
-  return this.httpService.sendPostRequest(url,body);
+addteststep(name, body) {
+  const url = 'design/addstep/' + name;
+  return this.httpService.sendPostRequest(url, body);
 }
 
 
-updateteststep(id,action,expected){
-  const url = 'design/updatestep/'+id;
-  const body = {action: action,
-  expected: expected};
-  return this.httpService.sendPostRequest(url,body);
+updateteststep(id, action, expected) {
+  const url = 'design/updatestep/' + id;
+  const body = {action,
+  expected};
+  return this.httpService.sendPostRequest(url, body);
 }
 
 

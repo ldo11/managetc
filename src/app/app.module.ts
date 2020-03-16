@@ -1,6 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import {ReactiveFormsModule} from "@angular/forms";
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule} from '@angular/forms';
+import { MaterialModule } from './core/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +21,9 @@ import { PageNotFoundComponent } from './page/page-not-found/page-not-found.comp
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'project', component: ProjectComponent },
+  { path: 'design', component: DesignComponent },
+  { path: 'execution', component: ExecutionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', component: PageNotFoundComponent }
@@ -41,6 +48,9 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MaterialModule,
     ReactiveFormsModule
   ],
   providers: [],

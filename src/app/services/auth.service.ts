@@ -17,17 +17,17 @@ export class AuthService {
 
   }
 
-  signup(user: User) {
-    const url = 'api/v1/auth/register';
-
-    return this.httpService.sendPostRequest(url, user);
+  signup(email: string, password: string) {
+    const url = 'users/create';
+    const d = {email, password};
+    return this.httpService.sendPostRequest(url, d);
   }
 
-  signin(username: string, password: string) {
+  signin(email: string, password: string) {
 
-    const url = 'api/v1/auth/login';
+    const url = 'users/login';
     const d = {
-      username,
+      email,
       password
     };
 
