@@ -3,9 +3,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<div class="container emp-profile">
+<div class="container profile">
   <form #profileForm = "ngForm" (ngSubmit)="onSubmit(profileForm.value)">
     <div class="row">
+      <!-- 4: avatar -->
       <div class="col-md-4">
         <div class="profile-img">
           <img src="../../images/tester1.jpg" alt="" class="img-circle" style="width:100%"/>
@@ -14,8 +15,9 @@
           </div>
         </div>
       </div>
+      <!-- 8: form -->
       <div class="col-md-8">
-        <h2> Profile: {{profile.name}}</h2>
+        <h2> {{profile.name}}</h2>
         <div class="col-md-8 form-group">
           <label>Email</label>
           <input type="text" class="form-control" [ngModel]="profile.email" name="email" readonly/>
