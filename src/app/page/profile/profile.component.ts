@@ -11,30 +11,32 @@ import {Profile} from '../../models/profile';
 })
 export class ProfileComponent implements OnInit {
   //binding
-
+  email: string;
+  profile: Profile;
 
   constructor(private profileService: ProfileService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute) {
+
+  }
 
   ngOnInit(): void {
     //how to get param
+    this.email = this.activatedRoute.snapshot.params['email'];
 
     //call load data
-
+    this.onLoadData(this.email);
   }
 
   onSubmit(value:any){
     const newName = value.name;
     const newPhone = value.phone;
     const newAvatar = value.avatar;
-    this.profileService.updateprofile('email',newName,newPhone,newAvatar);
+    this.profileService.updateprofile(this.email,newName,newPhone,newAvatar);
   }
 
-  onLoadData() {
-    const email:string= 'abc@gmail.com';
+  onLoadData(email) {
     this.profileService.findprofile(email).then((profile: Profile) =>{
-        console.dir(profile);
-
+      this.profile = profile;
     });
   }
 
