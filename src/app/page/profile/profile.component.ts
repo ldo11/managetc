@@ -25,12 +25,10 @@ export class ProfileComponent implements OnInit {
   }
 
   onGetProfileDetail(){
-    const email:string = 'abc@gmail.com';
+    const email = this.profileForm.value.email;
     this.profileService.findprofile(email).then((profile: Profile) =>{
-        profile.name = this.profileForm.value.name;
-        profile.email = email;
-        this.profileForm.value.email = email;
-        console.dir(this.profileForm.value);
+        console.dir(profile);
+        console.dir(this.profileForm);
     });
   }
 
