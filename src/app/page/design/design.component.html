@@ -1,1 +1,37 @@
-<p>design works!</p>
+<h4>Test case design</h4>
+<mat-card>
+<mat-form-field>
+  <mat-label>Project: </mat-label>
+  <mat-select [(value)]="pselected">
+    <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+  <button mat-button>Add more Project</button>
+</mat-card>
+<mat-card>
+<mat-form-field>
+  <mat-label>Testcase: </mat-label>
+  <mat-select [(value)]="tselected">
+    <mat-option *ngFor="let tc of testcases" [value]="tc._id">{{tc.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+  <mat-card>
+  <mat-form-field>
+    <mat-label>Version</mat-label>
+    <input matInput [value]="currenttc.tc_version">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <input matInput [value]="currenttc.status">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Creator</mat-label>
+    <input matInput [value]="currenttc.creator">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Reviewer</mat-label>
+    <input matInput [value]="currenttc.reviewer">
+  </mat-form-field>
+  </mat-card>
+</mat-card>
+

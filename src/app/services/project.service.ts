@@ -12,28 +12,33 @@ export class ProjectsService {
 
   }
 
+ findprojectbyemail(email) {
+  const url = 'projects/e/' + email;
+  const body = {};
+  return this.httpService.sendGetRequest(url, body);
+}
 
   addproject(name) {
-    const url = 'project';
-    const body = {name: name};
+    const url = 'projects';
+    const body = {name};
     return this.httpService.sendPostRequest(url, body);
   }
 
 
   findprojectbyid(projectid) {
-    const url = 'project/' + projectid;
+    const url = 'projects/' + projectid;
     const body = {};
     return this.httpService.sendGetRequest(url, body);
   }
 
   addtester(projectname) {
-    const url = 'project/addtester';
+    const url = 'projects/addtester';
     const body = {name: projectname};
     return this.httpService.sendPostRequest(url, body);
   }
 
   findalltesters(projectname) {
-    const url = 'project/alltesters/' + projectname;
+    const url = 'projects/alltesters/' + projectname;
     const body = {};
     return this.httpService.sendGetRequest(url, body);
   }

@@ -17,6 +17,8 @@ import { ExecutionComponent } from './page/execution/execution.component';
 import { ProjectComponent } from './page/project/project.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
@@ -41,19 +43,21 @@ const appRoutes: Routes = [
     ProjectComponent,
     PageNotFoundComponent
   ],
-  imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    ),
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MaterialModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        RouterModule.forRoot(
+            appRoutes,
+            {enableTracing: true} // <-- debugging purposes only
+        ),
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatTableModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
