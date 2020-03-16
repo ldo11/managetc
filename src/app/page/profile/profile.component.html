@@ -4,43 +4,43 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container emp-profile">
-  <form [formGroup]="profileForm">
+  <form #profileForm = "ngForm" (ngSubmit)="onSubmit(profileForm.value)">
     <div class="row">
       <div class="col-md-4">
         <div class="profile-img">
           <img src="../../images/tester1.jpg" alt="" class="img-circle" style="width:100%"/>
           <div class="file btn btn-secondary">
-            <input type="file" name="avatar" formControlName="avatar"/>
+            <input type="file" name="avatar" ngModel name="avartar"/>
           </div>
         </div>
       </div>
       <div class="col-md-8">
-        <h2>{{profile.name}}</h2>
+        <h2>profile.name</h2>
         <div class="col-md-8 form-group">
           <label>Email</label>
-          <input type="text" class="form-control" formControlName="email"/>
+          <input type="text" class="form-control" ngModel name="email"/>
         </div>
 
         <div class="col-md-8 form-group">
           <label>Name</label>
-          <input type="text" class="form-control" formControlName="name"/>
+          <input type="text" class="form-control" ngModel name="name"/>
         </div>
 
         <div class="col-md-8 form-group">
           <label>Phone</label>
-          <input type="text" class="form-control" formControlName="phone"/>
+          <input type="text" class="form-control" ngModel name="phone"/>
         </div>
 
         <div class="col-md-8 form-group">
           <label>Role</label>
-          <input type="text" class="form-control" formControlName="role"/>
+          <input type="text" class="form-control" ngModel name="role"/>
         </div>
 
         <div class="col-md-8 form-group">
           <label>Project*</label>
-          <input type="text" class="form-control" formControlName="project"/>
+          <input type="text" class="form-control" ngModel name="project"/>
         </div>
-        <button type="submit" class="btn btn-primary" (click)="onGetProfileDetail()">Update</button>
+        <button type="submit" class="btn btn-primary" >Update</button>
 
       </div>
     </div>

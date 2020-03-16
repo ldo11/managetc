@@ -24,6 +24,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(value:any){
+      console.log(value);
+  }
 
   onGetProfileDetail() {
     const email:string= 'abc@gmail.com';
