@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 import {ProfileService} from '../../services/profile.service';
 import {Profile} from '../../models/profile';
 
@@ -10,29 +11,30 @@ import {Profile} from '../../models/profile';
 })
 export class ProfileComponent implements OnInit {
   //binding
-  profileForm = new FormGroup({
-      name: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
-      role: new FormControl(''),
-      project: new FormControl(''),
-      avatar: new FormControl(''),
-  });
 
-  constructor(private profileService: ProfileService) { }
+
+  constructor(private profileService: ProfileService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    //how to get param
+
+    //call load data
+
   }
 
   onSubmit(value:any){
-      console.log(value);
+    const newName = value.name;
+    const newPhone = value.phone;
+    const newAvatar = value.avatar;
+    this.profileService.updateprofile('email',newName,newPhone,newAvatar);
   }
 
-  onGetProfileDetail() {
+  onLoadData() {
     const email:string= 'abc@gmail.com';
     this.profileService.findprofile(email).then((profile: Profile) =>{
         console.dir(profile);
-        console.dir(this.profileForm);
+
     });
   }
 
