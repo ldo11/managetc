@@ -12,6 +12,11 @@ export class DesignService {
 
 }
 
+removestep(id) {
+  const url = 'design/' + id;
+  const body = {};
+  return this.httpService.sendDeleteRequest(url);
+}
 findtcinproject(projectname) {
   const url = 'design/p/' + projectname;
   const body = {};
