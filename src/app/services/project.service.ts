@@ -43,4 +43,10 @@ export class ProjectsService {
     return this.httpService.sendGetRequest(url, body);
   }
 
+  findallemal() {
+    const url = 'users/alluser/';
+    const body = {};
+    return this.httpService.sendGetRequest(url, body);
+  }
+
 }
