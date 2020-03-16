@@ -19,13 +19,18 @@ export class ProfileComponent implements OnInit {
       avatar: new FormControl(''),
   });
 
-  constructor(private profileService:ProfileService) { }
+  constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
   }
 
+<<<<<<< HEAD
   onGetProfileDetail(){
     const email = this.profileForm.value.email;
+=======
+  onGetProfileDetail() {
+    const email:string= 'abc@gmail.com';
+>>>>>>> commit register, login, generate token
     this.profileService.findprofile(email).then((profile: Profile) =>{
         console.dir(profile);
         console.dir(this.profileForm);
