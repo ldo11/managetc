@@ -15,10 +15,10 @@
         </div>
       </div>
       <div class="col-md-8">
-        <h2>profile.name</h2>
+        <h2> Profile: {{profile.name}}</h2>
         <div class="col-md-8 form-group">
           <label>Email</label>
-          <input type="text" class="form-control" [ngModel]="profile.email" name="email"/>
+          <input type="text" class="form-control" [ngModel]="profile.email" name="email" readonly/>
         </div>
 
         <div class="col-md-8 form-group">
@@ -33,12 +33,12 @@
 
         <div class="col-md-8 form-group">
           <label>Role</label>
-          <input type="text" class="form-control" [ngModel]="profile.role" name="role"/>
+          <input type="text" class="form-control" [ngModel]="profile.role" name="role" readonly/>
         </div>
 
         <div class="col-md-8 form-group">
           <label>Project*</label>
-          <input type="text" class="form-control" [ngModel]="profile.project" name="project"/>
+          <input type="text" class="form-control" [ngModel]="profile.project" name="project" readonly/>
         </div>
         <button type="submit" class="btn btn-primary" >Update</button>
 

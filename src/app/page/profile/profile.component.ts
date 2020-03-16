@@ -11,7 +11,7 @@ import {Profile} from '../../models/profile';
 })
 export class ProfileComponent implements OnInit {
   //binding
-  email: string;
+  email: string; // to get param from url
   profile: Profile;
 
   constructor(private profileService: ProfileService,
@@ -22,7 +22,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     //how to get param
     this.email = this.activatedRoute.snapshot.params['email'];
-
     //call load data
     this.onLoadData(this.email);
   }
