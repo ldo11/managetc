@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSelectModule} from '@angular/material/select';
+import {FormBuilder, Validators} from "@angular/forms";
 import {Project} from '../../models/project';
 import {Testcase} from '../../models/testcase';
 import {ProjectsService} from '../../services/project.service';
@@ -22,16 +23,20 @@ export class ExecutionComponent implements OnInit {
   testcases: Array<Testcase>;
   currenttc: Testcase;
   executetc: Execution;
-  steps: Array<Step>;
-  results:Array<Result>;
   pselected: Project;
   tselected: Testcase;
+
+  steps: Array<Step>;
+  results:Array<Result>;
+  executions: {steps,results};
+
   resultselected:string;
   no = 0;
   displayedColumns = ['Step', 'Action', 'Expected', 'Execution'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
 
   constructor(private router: Router,
+              private formBuilder: FormBuilder,
               private projectService: ProjectsService,
               private designService: DesignService,
               private executionService: ExecutionService) { }
@@ -50,6 +55,12 @@ export class ExecutionComponent implements OnInit {
 
     });
   }
+
+  resultForm = this.formBuilder.group({
+
+  });
+
+
   loadtc(projectname) {
     console.log(projectname);
     this.designService.findtcinproject(projectname).then((Testcases: Array<Testcase>) => {
@@ -61,8 +72,11 @@ export class ExecutionComponent implements OnInit {
     });
   }
 
-  addresultforeachstep(stepid,result){
-    this.results.push(new Result(stepid,result));
+
+
+  addresultforeachstep(step: Step,result:Result){
+    console.dir(this.resultselected)
+    this.results.push(new Result(step,result));
   }
   saveresult(){
 

@@ -1,7 +1,14 @@
 
+
 <mat-card>
+  <!-- execution result -->
+  <h4>Testcase Report</h4>
+  <button mat-raised-button>Start</button>
+
+
+  <!-- execution result -->
   <h4>Testcase Information</h4>
-  <form class="example-form">
+  <form [formGroup]="resultForm"  class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Project</mat-label>
       <input matInput placeholder="project name" [value]="pselected.name" readonly>
@@ -18,36 +25,37 @@
       <mat-label>Build Number</mat-label>
       <input matInput placeholder="build number" value="executetc.build_number">
     </mat-form-field>
+
+    <!-- execution result -->
+    <h4>Execution Result</h4>
+    <mat-table [dataSource]="executions">
+      <ng-container matColumnDef="Step">
+        <mat-header-cell *matHeaderCellDef> Step </mat-header-cell>
+        <mat-cell *matCellDef="let element;index as i;"> #{{ i }} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+        <mat-cell *matCellDef="let element;">{{element.steps.action}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Expected">
+        <mat-header-cell *matHeaderCellDef> Expected </mat-header-cell>
+        <mat-cell *matCellDef="let element;">{{element.steps.expected}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Execution">
+        <mat-header-cell *matHeaderCellDef>Execution</mat-header-cell>
+        <mat-cell *matCellDef="let element;">
+          <mat-select placeholder="Select result" [value]="element.results.result">
+            <mat-option value="PASSED">PASSED</mat-option>
+            <mat-option value="FAILED">FAILED</mat-option>
+          </mat-select>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <br>
+    <!-- update testcase resut -->
+    <button mat-raised-button (click)="saveresult()">Save</button>
   </form>
 </mat-card>
 
-<mat-card>
-  <h4>Execution Result</h4>
-  <mat-table [dataSource]="steps">
-    <ng-container matColumnDef="Step">
-      <mat-header-cell *matHeaderCellDef> Step </mat-header-cell>
-      <mat-cell *matCellDef="let element;index as i;"> #{{ i }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="Action">
-      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-      <mat-cell *matCellDef="let element;">{{element.action}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="Expected">
-      <mat-header-cell *matHeaderCellDef> Expected </mat-header-cell>
-      <mat-cell *matCellDef="let element;">{{element.expected}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="Execution">
-      <mat-header-cell *matHeaderCellDef>Execution</mat-header-cell>
-      <mat-cell *matCellDef="let element;">
-        <mat-select #result placeholder="Select result" [(value)]="resultselected">
-          <mat-option value="PASSED">PASSED</mat-option>
-          <mat-option value="FAILED">FAILED</mat-option>
-        </mat-select>
-      </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-  </mat-table>
-  <!-- update testcase resut -->
-  <button mat-button (click)="saveresult()">Save</button>
-</mat-card>
