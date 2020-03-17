@@ -7,7 +7,7 @@
     <th>Status</th>
     <th></th>
     <th></th>
-    <th>New Role</th>
+    <th>Select new Role</th>
     <th></th>
   </tr>
   <tr *ngFor="let user of users">
@@ -53,7 +53,7 @@
   </mat-form-field>
     </td>
     <td>
-      <button mat-button (click)=changerole(user.email,user.role)  >UPDATE_ROLE</button>
+      <button mat-button (click)=changerole(user.email,user.role)  >ChangeRole</button>
     </td>
   </tr>
  

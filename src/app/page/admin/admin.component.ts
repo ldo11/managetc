@@ -32,7 +32,25 @@ export class AdminComponent implements OnInit {
   }
 
   changerole(email,role){
-    this.adminService.changerole(email,role);
+    
+    let new_role;
+    if(role==='Tester')
+    {
+      new_role='Senior Tester';
+      this.reload_user();
+    } else  if(role==='Senior Tester')
+    {
+      new_role='Tester';
+      this.reload_user();
+    }
+    else 
+    {
+      new_role='Tester';
+      this.reload_user();
+    }
+    
+
+    this.adminService.changerole(email,new_role);
     this.reload_user();
   }
 }
