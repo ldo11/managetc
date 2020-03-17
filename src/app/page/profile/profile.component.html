@@ -1,50 +1,36 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<div class="container profile">
-  <form #profileForm = "ngForm" (ngSubmit)="onSubmit(profileForm.value)">
-    <div class="row">
-      <!-- 4: avatar -->
-      <div class="col-md-4">
-        <div class="profile-img">
-          <img src="../../images/tester1.jpg" alt="" class="img-circle" style="width:100%"/>
-          <div class="file btn btn-secondary">
-            <input type="file" class="form-control-file" ngModel name="avartar"/>
-          </div>
-        </div>
-      </div>
-      <!-- 8: form -->
-      <div class="col-md-8">
-        <h2> {{profile.name}}</h2>
-        <div class="col-md-8 form-group">
-          <label>Email</label>
-          <input type="text" class="form-control" [ngModel]="profile.email" name="email" readonly/>
-        </div>
-
-        <div class="col-md-8 form-group">
-          <label>Name</label>
-          <input type="text" class="form-control" [ngModel]="profile.name" name="name"/>
-        </div>
-
-        <div class="col-md-8 form-group">
-          <label>Phone</label>
-          <input type="text" class="form-control" [ngModel]="profile.phone" name="phone"/>
-        </div>
-
-        <div class="col-md-8 form-group">
-          <label>Role</label>
-          <input type="text" class="form-control" [ngModel]="profile.role" name="role" readonly/>
-        </div>
-
-        <div class="col-md-8 form-group">
-          <label>Project</label>
-          <input type="text" class="form-control" [ngModel]="profile.project" name="project" readonly/>
-        </div>
-        <button type="submit" class="btn btn-primary" >Update</button>
-
-      </div>
-    </div>
+<mat-card>
+  <h2>Edit Profile</h2>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Avatar</mat-label>
+      <input matInput placeholder="Ex. Pizza">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input matInput >
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Phone</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Role</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Project</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <br>
+    <button mat-button color="primary">Update</button>
   </form>
-</div>
+</mat-card>
