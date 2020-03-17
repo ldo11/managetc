@@ -1,1 +1,53 @@
-<p>execution works!</p>
+
+<mat-card>
+  <h2>Testcase</h2>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Project</mat-label>
+      <input matInput placeholder="project name" value="project">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Testcase</mat-label>
+      <input matInput placeholder="testcase name" value="testcase">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Testcase Version</mat-label>
+      <input matInput placeholder="testcase version" value="tc_version">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Build Number</mat-label>
+      <input matInput placeholder="build number" value="build_number">
+    </mat-form-field>
+
+  </form>
+</mat-card>
+
+<mat-card>
+  <h2>Execution Result</h2>
+  <mat-table [dataSource]="steps">
+    <ng-container matColumnDef="Step">
+      <mat-header-cell *matHeaderCellDef> Step </mat-header-cell>
+      <mat-cell *matCellDef="let element;index as i;"> #{{ i }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Action">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element;">{{element.action}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Expected">
+      <mat-header-cell *matHeaderCellDef> Expected </mat-header-cell>
+      <mat-cell *matCellDef="let element;">{{element.expected}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Execution">
+      <mat-header-cell *matHeaderCellDef>Execution</mat-header-cell>
+      <mat-cell *matCellDef="let element;">
+        <mat-select #result placeholder="Select result">
+          <mat-option value="PASSED">PASSED</mat-option>
+          <mat-option value="FAILED">FAILED</mat-option>
+        </mat-select>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</mat-card>
