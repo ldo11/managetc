@@ -12,8 +12,8 @@ export class DesignService {
 
 }
 
-removestep(id) {
-  const url = 'design/' + id;
+removeStep(tcid, id) {
+  const url = 'design/' + tcid + '/' + id;
   const body = {};
   return this.httpService.sendDeleteRequest(url);
 }

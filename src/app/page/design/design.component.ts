@@ -4,10 +4,9 @@ import {Project} from '../../models/project';
 import {Testcase} from '../../models/testcase';
 import {ProjectsService} from '../../services/project.service';
 import {DesignService} from '../../services/design.service';
-import {User} from '../../models/user';
 import {Step} from '../../models/step';
 import {MatTable} from '@angular/material/table';
-import {element} from 'protractor';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-design',
@@ -24,40 +23,55 @@ export class DesignComponent implements OnInit {
   no = 0;
   displayedColumns = ['Step', 'Action', 'Expected', 'Delete'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
+<<<<<<< HEAD
 
   constructor(private projectService: ProjectsService, private designService: DesignService) { }
+=======
+  constructor(private router: Router, private projectService: ProjectsService, private designService: DesignService) { }
+>>>>>>> 7adb65fa3350a61acc4191f1da0964dec562e6fe
 
   ngOnInit(): void {
-    const email = 'abc@gmail.com';
+    const email = 'luat01@gmail.com';
     this.projectService.findprojectbyemail(email).then((Projects: Array<Project>) => {
-      this.pselected = Projects[1]._id;
+      if (Projects.length === 0) {
+        alert('You are not assign to any project! Please contact your leader');
+        this.router.navigateByUrl('/login');
+      }
+      this.pselected = Projects[0]._id;
       this.projects = Projects;
-      this.loadtc(this.projects[1].name);
+      this.loadtc(this.projects[0].name);
     });
   }
   loadtc(projectname) {
     console.log(projectname);
     this.designService.findtcinproject(projectname).then((Testcases: Array<Testcase>) => {
       this.testcases = Testcases;
-      this.tselected = this.testcases[1]._id;
-      this.currenttc = this.testcases[1];
+      this.tselected = this.testcases[0]._id;
+      this.currenttc = this.testcases[0];
       this.steps = this.currenttc.steps;
     });
   }
   addstep(action, expected) {
-    const b = {
-      action, expected
-    };
-    this.steps.push(new Step( action, expected));
-    this.designService.addteststep(this.currenttc.name, b).then();
-    this.table.renderRows();
+    if (action.length === 0 || expected.length === 0) {
+      alert('Please enter action and expected for new step');
+    } else {
+      const b = {
+        action, expected
+      };
+      this.steps.push(new Step( action, expected));
+      this.designService.addteststep(this.currenttc.name, b).then();
+      this.table.renderRows();
+    }
   }
   deleteRowData( ele ) {
     this.steps = this.steps.filter((value, key) => {
       return value._id !== ele._id;
     });
     console.log(ele._id);
-    this.designService.removestep(ele._id).then();
+    this.designService.removeStep(this.currenttc._id, ele._id).then();
+  }
+  changeproject(p) {
+    this.loadtc(p);
   }
 
 }

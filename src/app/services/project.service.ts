@@ -30,16 +30,15 @@ export class ProjectsService {
     const body = {};
     return this.httpService.sendGetRequest(url, body);
   }
-
-  findprojectbyname(projectName){
+  findprojectbyname(projectName) {
     const url = 'projects/' + projectName;
     const body = {};
-    return this.httpService.sendGetRequest(url,body);
+    return this.httpService.sendGetRequest(url, body);
   }
+  addtester(projectname, tester) {
+    const url = 'projects/addtester/' + projectname;
+    const body = {testeremail: tester};
 
-  addtester(projectname) {
-    const url = 'projects/addtester';
-    const body = {name: projectname};
     return this.httpService.sendPostRequest(url, body);
   }
 
@@ -49,8 +48,14 @@ export class ProjectsService {
     return this.httpService.sendGetRequest(url, body);
   }
 
-  findallemal() {
+  findallemail() {
     const url = 'users/alluser/';
+    const body = {};
+    return this.httpService.sendGetRequest(url, body);
+  }
+
+  findallprojects() {
+    const url = 'projects/allprojects/';
     const body = {};
     return this.httpService.sendGetRequest(url, body);
   }
