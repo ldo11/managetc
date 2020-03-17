@@ -4,10 +4,10 @@ import {Project} from '../../models/project';
 import {Testcase} from '../../models/testcase';
 import {ProjectsService} from '../../services/project.service';
 import {DesignService} from '../../services/design.service';
-import {ExecutionService} from "../../services/execution.service";
+import {ExecutionService} from '../../services/execution.service';
 import {Step} from '../../models/step';
-import {Execution} from "../../models/execution";
-import {Result} from "../../models/result";
+import {Execution} from '../../models/execution';
+import {Result} from '../../models/result';
 import {MatTable} from '@angular/material/table';
 import {Router} from '@angular/router';
 
@@ -34,7 +34,7 @@ export class ExecutionComponent implements OnInit {
   constructor(private router: Router,
               private projectService: ProjectsService,
               private designService: DesignService,
-              private executionService:ExecutionService) { }
+              private executionService: ExecutionService) { }
 
   ngOnInit(): void {
     const email = 'luat01@gmail.com';

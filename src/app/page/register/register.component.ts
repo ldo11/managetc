@@ -22,7 +22,7 @@ export class RegisterComponent {
       const email = this.registerForm.value.email;
       const password = this.registerForm.value.password;
       this.authService.signup(email, password)
-        .then(() => this.authService.signin(email, password))
+        .then()
         .catch((err) => alert('Can not register! ${err}'));
     }
   }

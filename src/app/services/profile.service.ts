@@ -8,22 +8,22 @@ import {HttpService} from './http.service';
 export class ProfileService {
 
   constructor(private logger: LogService,
-    private httpService: HttpService) {
+              private httpService: HttpService) {
 
 }
 
 
-findprofile(email){
+findprofile(email) {
   const url = 'profile/' + email;
   const body = {};
-  return this.httpService.sendGetRequest(url,body);
+  return this.httpService.sendGetRequest(url, body);
 }
 
 
-updateprofile(email,name,phone,avatar){
+updateprofile(email, name, phone, avatar) {
   const url = 'profile';
-  const body = {email:email,name:name,phone:phone,avatar:avatar};
-  return this.httpService.sendPostRequest(url,body);
+  const body = {email, name, phone, avatar};
+  return this.httpService.sendPostRequest(url, body);
 }
 
 }
