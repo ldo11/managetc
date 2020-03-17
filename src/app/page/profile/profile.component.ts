@@ -21,7 +21,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     //how to get param
-    this.email = this.activatedRoute.snapshot.params['email'];
+    //this.email = this.activatedRoute.snapshot.params['email'];
+    this.email = 'abc@gmail.com';
     //call load data
     this.onLoadData(this.email);
   }
