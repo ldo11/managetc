@@ -39,7 +39,7 @@
     <ng-container matColumnDef="Execution">
       <mat-header-cell *matHeaderCellDef>Execution</mat-header-cell>
       <mat-cell *matCellDef="let element;">
-        <mat-select #result placeholder="Select result">
+        <mat-select #result placeholder="Select result" [(value)]="resultselected">
           <mat-option value="PASSED">PASSED</mat-option>
           <mat-option value="FAILED">FAILED</mat-option>
         </mat-select>

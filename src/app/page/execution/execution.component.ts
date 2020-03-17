@@ -37,6 +37,7 @@ export class ExecutionComponent implements OnInit {
               private executionService: ExecutionService) { }
 
   ngOnInit(): void {
+    this.resultselected="PASSED";
     const email = 'luat01@gmail.com';
     this.projectService.findprojectbyemail(email).then((Projects: Array<Project>) => {
       if (Projects.length === 0) {
@@ -60,7 +61,7 @@ export class ExecutionComponent implements OnInit {
     });
   }
 
-  addresultforeachsteps(stepid,result){
+  addresultforeachstep(stepid,result){
     this.results.push(new Result(stepid,result));
   }
   saveresult(){
