@@ -1,4 +1,5 @@
 
+import { Router } from '@angular/router';
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {ProjectsService} from '../../services/project.service';
@@ -21,7 +22,7 @@ export class ProjectComponent implements OnInit {
   emailInproject: Array<string>;
   displayedColumns = ['Project', 'Tester', 'ADDT', 'ATC'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
-  constructor(private projectService: ProjectsService, private designService: DesignService) { }
+  constructor(private router: Router, private projectService: ProjectsService, private designService: DesignService) { }
 
   ngOnInit(): void {
     this.projectService.findallprojects().then((Projects: Array<Project>) => {
@@ -42,7 +43,14 @@ export class ProjectComponent implements OnInit {
   addproject(p) {
     this.projectService.addproject(p).then(_ => this.loadproject());
   }
+  gotoDesign(p) {
+    const url = this.router.createUrlTree(['/design', p]);
+    this.router.navigateByUrl(url);
+  }
   addtc(p, tc) {
-    this.designService.addtestcase(new Testcase(tc, p, this.currentuser)).then();
+
+    const url = this.router.createUrlTree(['/design', p, tc]);
+    this.designService.addtestcase(new Testcase(tc, p, this.currentuser))
+      .then(_ => this.router.navigateByUrl(url));
   }
 }

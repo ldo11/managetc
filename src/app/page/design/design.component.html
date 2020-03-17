@@ -6,16 +6,16 @@
     <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
   </mat-select>
 </mat-form-field>
-  <button mat-button>Add more Project</button>
+  <button mat-button routerLink="/project" routerLinkActive="active">Add more Project</button>
 </mat-card>
 <mat-card>
 <mat-form-field>
   <mat-label>Testcase: </mat-label>
-  <mat-select [(value)]="tselected">
+  <mat-select [(value)]="tselected" #cur_tc>
     <mat-option *ngFor="let tc of testcases" [value]="tc._id">{{tc.name}}</mat-option>
   </mat-select>
 </mat-form-field>
-  <button mat-button>Execute</button>
+  <button mat-button routerLink="/execution/{{cur_tc.value}}" routerLinkActive="active">Execute</button>
   <mat-card>
   <mat-form-field>
     <mat-label>Version</mat-label>
@@ -60,11 +60,11 @@
     <h4>Add more step</h4>
     <mat-form-field appearance="fill">
       <mat-label>Action</mat-label>
-      <input matInput #action>
+      <input matInput #action required>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Expected</mat-label>
-      <input matInput #expected>
+      <input matInput #expected required>
     </mat-form-field>
     <button mat-button (click)="addstep(action.value,expected.value)">Add</button>
   </mat-card>

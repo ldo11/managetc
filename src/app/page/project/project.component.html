@@ -10,7 +10,7 @@
 <mat-table [dataSource]="projects">
   <ng-container matColumnDef="Project">
     <mat-header-cell *matHeaderCellDef> Project </mat-header-cell>
-    <mat-cell *matCellDef="let element;">{{element.name}}</mat-cell>
+    <mat-cell *matCellDef="let element;" (click)="gotoDesign(element.name)">{{element.name}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="Tester">
     <mat-header-cell *matHeaderCellDef> Tester </mat-header-cell>
