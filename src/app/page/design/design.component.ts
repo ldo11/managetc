@@ -23,12 +23,8 @@ export class DesignComponent implements OnInit {
   no = 0;
   displayedColumns = ['Step', 'Action', 'Expected', 'Delete'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
-<<<<<<< HEAD
 
-  constructor(private projectService: ProjectsService, private designService: DesignService) { }
-=======
   constructor(private router: Router, private projectService: ProjectsService, private designService: DesignService) { }
->>>>>>> 7adb65fa3350a61acc4191f1da0964dec562e6fe
 
   ngOnInit(): void {
     const email = 'luat01@gmail.com';
