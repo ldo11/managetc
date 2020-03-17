@@ -10,5 +10,6 @@ export class Execution {
     this.tc_name = tcName;
     this.project_name = projectName;
     this.results = results;
+    this.build_number="1.0";
   }
 }

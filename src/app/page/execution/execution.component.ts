@@ -24,8 +24,9 @@ export class ExecutionComponent implements OnInit {
   executetc: Execution;
   steps: Array<Step>;
   results:Array<Result>;
-  pselected;
-  tselected;
+  pselected: Project;
+  tselected: Testcase;
+  resultselected:string;
   no = 0;
   displayedColumns = ['Step', 'Action', 'Expected', 'Execution'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
@@ -42,22 +43,29 @@ export class ExecutionComponent implements OnInit {
         alert('You are not assign to any project! Please contact your leader');
         this.router.navigateByUrl('/login');
       }
-      this.pselected = Projects[0].name;
-      console.dir(this.pselected);
+      this.pselected = Projects[0];
       this.projects = Projects;
-      this.loadtc(this.projects[0].name);
+      this.loadtc(this.pselected.name);
+
     });
   }
   loadtc(projectname) {
     console.log(projectname);
     this.designService.findtcinproject(projectname).then((Testcases: Array<Testcase>) => {
       this.testcases = Testcases;
-      this.currenttc = this.testcases[0];
-      this.tselected = this.currenttc.name;
-      console.dir(this.tselected)
+      this.tselected = Testcases[0];
+      // this.executetc = new Execution(this.tselected,this.pselected,[]);
+      this.currenttc = this.tselected;
       this.steps = this.currenttc.steps;
     });
   }
 
+  addresultforeachsteps(stepid,result){
+    this.results.push(new Result(stepid,result));
+  }
+  saveresult(){
+
+    this.executionService.postExecution(this.currenttc.name,this.currenttc.creator,this.currenttc.tc_version,"1.0",this.results);
+  }
 
 }
