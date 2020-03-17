@@ -26,16 +26,17 @@ export class ProfileComponent implements OnInit {
     this.onLoadData(this.email);
   }
 
-  onSubmit(value:any){
-    const newName = value.name;
-    const newPhone = value.phone;
-    const newAvatar = value.avatar;
+  onSubmit(){
+    const newName = this.profile.name;
+    const newPhone = this.profile.phone;
+    const newAvatar = this.profile.avatar;
     this.profileService.updateprofile(this.email,newName,newPhone,newAvatar);
   }
 
   onLoadData(email) {
     this.profileService.findprofile(email).then((profile: Profile) =>{
       this.profile = profile;
+      console.dir(profile);
     });
   }
 
