@@ -36,7 +36,7 @@ export class ExecutionComponent implements OnInit {
               private executionService:ExecutionService) { }
 
   ngOnInit(): void {
-    const email = 'vo@gmail.com';
+    const email = 'luat01@gmail.com';
     this.projectService.findprojectbyemail(email).then((Projects: Array<Project>) => {
       if (Projects.length === 0) {
         alert('You are not assign to any project! Please contact your leader');
