@@ -24,6 +24,7 @@ export class DesignComponent implements OnInit {
   no = 0;
   displayedColumns = ['Step', 'Action', 'Expected', 'Delete'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
+
   constructor(private projectService: ProjectsService, private designService: DesignService) { }
 
   ngOnInit(): void {
