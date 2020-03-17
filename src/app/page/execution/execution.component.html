@@ -1,22 +1,22 @@
 
 <mat-card>
-  <h4>Testcase</h4>
+  <h4>Testcase Information</h4>
   <form class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Project</mat-label>
-      <input matInput placeholder="project name" [value]="pselected">
+      <input matInput placeholder="project name" [value]="pselected.name" readonly>
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Testcase</mat-label>
-      <input matInput placeholder="testcase name" [value]="tselected">
+      <input matInput placeholder="testcase name" [value]="tselected.name" readonly>
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Testcase Version</mat-label>
-      <input matInput placeholder="testcase version" value="tc_version">
+      <input matInput placeholder="testcase version" [value]="currenttc.tc_version" >
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Build Number</mat-label>
-      <input matInput placeholder="build number" value="build_number">
+      <input matInput placeholder="build number" value="executetc.build_number">
     </mat-form-field>
   </form>
 </mat-card>
@@ -45,8 +45,9 @@
         </mat-select>
       </mat-cell>
     </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
+  <!-- update testcase resut -->
+  <button mat-button (click)="saveresult()">Save</button>
 </mat-card>
