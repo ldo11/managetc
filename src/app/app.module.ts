@@ -22,8 +22,8 @@ import {MatTableModule} from '@angular/material/table';
 import {CdkTableModule} from '@angular/cdk/table';
 import { GrouptesterPipe } from './pipe/grouptester.pipe';
 import { HeaderComponent } from './page/header/header.component';
-import { JwtModule } from '@auth0/angular-jwt';
-import { AuthService } from './services/auth.service';
+//import { JwtModule } from '@auth0/angular-jwt';
+//import { AuthService } from './services/auth.service';
 import { UtilService } from './services/util.service';
 
 
