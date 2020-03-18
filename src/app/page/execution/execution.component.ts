@@ -80,14 +80,21 @@ export class ExecutionComponent implements OnInit {
       //convert to results
       this.results = [...this.steps];
 
-      this.results.forEach(function(e){
-        console.dir(e);
-      });
+      // this.results.forEach(function(e){
+      //   console.dir(e);
+      // });
 
     });
   }
 
   updateRowData(element) {
+    console.dir(element);
+    this.results = this.results.filter((value,key)=>{
+      return value._id !== element._id;
+    });
+
+    console.log(element._id);
+    this.executionService.postExecution(this.execution.tc_name,"tester",this.execution.tc_version,this.execution.build_number,this.results);
 
   }//end_updateRowData
 
