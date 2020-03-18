@@ -8,6 +8,9 @@ import {DesignService} from '../../services/design.service';
 import {ExecutionService} from '../../services/execution.service';
 import {Step} from '../../models/step';
 import {Execution} from '../../models/execution';
+
+import { RtStorageService } from '../../services/rt-storage.service';
+import { UtilService } from '../../services/util.service';
 import {Result} from '../../models/result';
 import {MatTable} from '@angular/material/table';
 import {Router} from '@angular/router';
@@ -36,7 +39,9 @@ export class ExecutionComponent implements OnInit {
   displayedColumns = ['Step', 'Action', 'Expected', 'Comment', 'Execution', 'Update'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
 
-  constructor(private router: Router,
+  constructor(private local: RtStorageService,
+              private util: UtilService,
+              private router: Router,
               private formBuilder: FormBuilder,
               private projectService: ProjectsService,
               private designService: DesignService,
@@ -47,7 +52,7 @@ export class ExecutionComponent implements OnInit {
   ngOnInit(): void {
     this.resultselected="PASSED";
     const email = 'luat01@gmail.com';
-    this.projectService.findprojectbyemail(email).then((Projects: Array<Project>) => {
+    this.projectService.findprojectbyemail(email, this.util.getCookie(this.local.CURR_USER_ROLE)).then((Projects: Array<Project>) => {
       if (Projects.length === 0) {
         alert('You are not assign to any project! Please contact your leader');
         this.router.navigateByUrl('/login');

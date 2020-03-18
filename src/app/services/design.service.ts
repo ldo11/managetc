@@ -39,6 +39,7 @@ addtestcase(testcasedetail) {
 
 updatetestcase(name, body) {
   const url = 'design/update/' + name;
+  console.log(body);
   return this.httpService.sendPostRequest(url, body);
 }
 

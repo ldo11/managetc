@@ -3,7 +3,7 @@
 <mat-form-field>
   <mat-label>Project: </mat-label>
   <mat-select [(value)]="pselected" (valueChange)="changeproject(pselected)">
-    <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
+    <mat-option *ngFor="let project of projects" [value]="project.name">{{project.name}}</mat-option>
   </mat-select>
 </mat-form-field>
   <button mat-button routerLink="/project" routerLinkActive="active">Add more Project</button>
@@ -11,28 +11,35 @@
 <mat-card>
 <mat-form-field>
   <mat-label>Testcase: </mat-label>
-  <mat-select [(value)]="tselected" #cur_tc>
-    <mat-option *ngFor="let tc of testcases" [value]="tc._id">{{tc.name}}</mat-option>
+  <mat-select [(value)]="tselected" #cur_tc (selectionChange)="loadtc(cur_tc.value)">
+    <mat-option *ngFor="let tc of testcases" [value]="tc.name">{{tc.name}}</mat-option>
   </mat-select>
 </mat-form-field>
-  <button mat-button routerLink="/execution/{{cur_tc.value}}" routerLinkActive="active">Execute</button>
+  <button mat-button *ngIf="currenttc.status==4" routerLink="/execution/{{cur_tc.value}}" routerLinkActive="active">Execute</button>
   <mat-card>
   <mat-form-field>
     <mat-label>Version</mat-label>
-    <input matInput [value]="currenttc.tc_version">
+    <input matInput [value]="currenttc?.tc_version" #cur_version disabled>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Status</mat-label>
-    <input matInput [value]="currenttc.status">
+    <mat-select [(value)]="stselected" #cur_status>
+      <mat-option *ngFor="let st of liststatuts" [value]="st.k">{{st.v}}</mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field>
+    <mat-label>Design by</mat-label>
+    <input matInput [value]="currenttc?.designer" disabled>
+  </mat-form-field>
+    <mat-form-field>
     <mat-label>Creator</mat-label>
-    <input matInput [value]="currenttc.creator">
+    <input matInput [value]="currenttc?.creator" disabled>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Reviewer</mat-label>
-    <input matInput [value]="currenttc.reviewer">
+    <input matInput [value]="currenttc?.reviewer" disabled>
   </mat-form-field>
+    <button mat-button (click)="savetc(currenttc.name,cur_status.value)">Save</button>
   </mat-card>
   <mat-card>
     <mat-table [dataSource]="steps">
@@ -42,11 +49,11 @@
       </ng-container>
       <ng-container matColumnDef="Action">
         <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-        <mat-cell *matCellDef="let element;">{{element.action}}</mat-cell>
+        <mat-cell *matCellDef="let element;">{{element?.action}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="Expected">
         <mat-header-cell *matHeaderCellDef> Expected </mat-header-cell>
-        <mat-cell *matCellDef="let element;">{{element.expected}}</mat-cell>
+        <mat-cell *matCellDef="let element;">{{element?.expected}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="Delete">
         <th mat-header-cell *matHeaderCellDef> Delete </th>
