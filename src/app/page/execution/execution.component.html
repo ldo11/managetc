@@ -8,46 +8,56 @@
 
   <!-- execution result -->
   <h4>Testcase Information</h4>
-  <form [formGroup]="resultForm"  class="example-form">
+  <form class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Project</mat-label>
-      <input matInput placeholder="project name" [value]="pselected.name" readonly>
+      <input matInput placeholder="project name" [value]="execution.project_name" readonly>
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Testcase</mat-label>
-      <input matInput placeholder="testcase name" [value]="tselected.name" readonly>
+      <input matInput placeholder="testcase name" [value]="execution.tc_name" readonly>
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Testcase Version</mat-label>
-      <input matInput placeholder="testcase version" [value]="currenttc.tc_version" >
+      <input matInput placeholder="testcase version" [value]="execution.tc_version" >
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Build Number</mat-label>
-      <input matInput placeholder="build number" value="executetc.build_number">
+      <input matInput placeholder="build number" [value]="execution.build_number">
     </mat-form-field>
 
     <!-- execution result -->
     <h4>Execution Result</h4>
-    <mat-table [dataSource]="executions">
+    <mat-table [dataSource]="results">
       <ng-container matColumnDef="Step">
         <mat-header-cell *matHeaderCellDef> Step </mat-header-cell>
         <mat-cell *matCellDef="let element;index as i;"> #{{ i }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="Action">
         <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-        <mat-cell *matCellDef="let element;">{{element.steps.action}}</mat-cell>
+        <mat-cell *matCellDef="let element;">{{element.action}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="Expected">
         <mat-header-cell *matHeaderCellDef> Expected </mat-header-cell>
-        <mat-cell *matCellDef="let element;">{{element.steps.expected}}</mat-cell>
+        <mat-cell *matCellDef="let element;">{{element.expected}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Comment">
+        <mat-header-cell *matHeaderCellDef> Comment </mat-header-cell>
+        <mat-cell *matCellDef="let element;"><input matInput [value]="element.comment"></mat-cell>
       </ng-container>
       <ng-container matColumnDef="Execution">
         <mat-header-cell *matHeaderCellDef>Execution</mat-header-cell>
         <mat-cell *matCellDef="let element;">
-          <mat-select placeholder="Select result" [value]="element.results.result">
-            <mat-option value="PASSED">PASSED</mat-option>
-            <mat-option value="FAILED">FAILED</mat-option>
+          <mat-select #stepResult placeholder="Select result">
+            <mat-option [value]="element.result">PASSED</mat-option>
+            <mat-option [value]="element.result">FAILED</mat-option>
           </mat-select>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Update">
+        <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-button (click)="updateRowData(element)">update</button>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

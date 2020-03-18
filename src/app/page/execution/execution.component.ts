@@ -12,6 +12,7 @@ import {Result} from '../../models/result';
 import {MatTable} from '@angular/material/table';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-execution',
   templateUrl: './execution.component.html',
@@ -21,25 +22,27 @@ export class ExecutionComponent implements OnInit {
 
   projects: Array<Project>;
   testcases: Array<Testcase>;
+  steps: Array<Step>;
+  results = [];
+
   currenttc: Testcase;
-  executetc: Execution;
+  execution;
   pselected: Project;
   tselected: Testcase;
 
-  steps: Array<Step>;
-  results:Array<Result>;
-  executions: {steps,results};
-
   resultselected:string;
+  build_number="1.0";
   no = 0;
-  displayedColumns = ['Step', 'Action', 'Expected', 'Execution'];
+  displayedColumns = ['Step', 'Action', 'Expected', 'Comment', 'Execution', 'Update'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private projectService: ProjectsService,
               private designService: DesignService,
-              private executionService: ExecutionService) { }
+              private executionService: ExecutionService) {
+
+  }
 
   ngOnInit(): void {
     this.resultselected="PASSED";
@@ -50,37 +53,46 @@ export class ExecutionComponent implements OnInit {
         this.router.navigateByUrl('/login');
       }
       this.pselected = Projects[0];
+      this.execution= { project_name:this.pselected.name};
       this.projects = Projects;
       this.loadtc(this.pselected.name);
-
     });
+
   }
 
-  resultForm = this.formBuilder.group({
-
-  });
-
-
   loadtc(projectname) {
-    console.log(projectname);
+    // console.log(projectname);
     this.designService.findtcinproject(projectname).then((Testcases: Array<Testcase>) => {
       this.testcases = Testcases;
       this.tselected = Testcases[0];
-      // this.executetc = new Execution(this.tselected,this.pselected,[]);
-      this.currenttc = this.tselected;
-      this.steps = this.currenttc.steps;
+      //update execution data
+      this.execution= { project_name:this.pselected.name,tc_name:this.tselected.name,tc_version:this.tselected.tc_version,build_number:this.build_number,results:this.results};
+      this.steps = this.tselected.steps;
+
+      //add result, comment
+      this.steps.forEach(function(e){
+        if(typeof e === "object"){
+          e["result"] = "";
+          e["comment"] = "";
+        }
+      });
+
+      //convert to results
+      this.results = [...this.steps];
+
+      this.results.forEach(function(e){
+        console.dir(e);
+      });
+
     });
   }
 
+  updateRowData(element) {
 
+  }//end_updateRowData
 
-  addresultforeachstep(step: Step,result:Result){
-    console.dir(this.resultselected)
-    this.results.push(new Result(step,result));
-  }
   saveresult(){
-
-    this.executionService.postExecution(this.currenttc.name,this.currenttc.creator,this.currenttc.tc_version,"1.0",this.results);
+    //this.executionService.postExecution(this.currenttc.name,this.currenttc.creator,this.currenttc.tc_version,this.build_number,this.results);
   }
 
 }
