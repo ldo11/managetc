@@ -1,10 +1,8 @@
 
-    <button routerLink="/admin" routerLinkActive="active">Admin</button>
     <button routerLink="/profile" routerLinkActive="active">Profile</button>
     <button routerLink="/project" routerLinkActive="active">Project</button>
     <button routerLink="/design" routerLinkActive="active">Design</button>
     <button routerLink="/execution" routerLinkActive="active">Execution</button>
-    <button routerLink="/login" routerLinkActive="active">Login</button>
-    <button routerLink="/register" routerLinkActive="active">Register</button>
+    <button (click)="logout()">Logout</button>
 
 <router-outlet></router-outlet>

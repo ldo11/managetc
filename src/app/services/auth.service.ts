@@ -30,25 +30,25 @@ export class AuthService {
       email,
       password
     };
-    return this.httpService.sendPostRequest(url, d);
-    // const http = this.httpService;
-    //
-    // return new Promise((resolve, reject) => {
-    //   http.sendPostRequest(url, d).then((respData: any) => {
-    //     if (respData && respData.tokens) {
-    //       const token = respData.tokens[respData.__v].token;
-    //       const userId = respData.user._id;
-    //       const t = 30;
-    //       this.util.setCookie(this.rtStorage.CURR_USER_ROLE, respData.role , t);
-    //       this.util.setCookie(this.rtStorage.TOKEN_KEY, token, t);
-    //       this.util.setCookie(this.rtStorage.CURR_USER_ID, userId, t);
-    //       this.util.setCookie(this.rtStorage.LOGGEDIN_USER, respData.user, t);
-    //     }
-    //
-    //     resolve(true);
-    //   })
-    //   .catch((err) => reject(err));
-    // });
+    // return this.httpService.sendPostRequest(url, d);
+    const http = this.httpService;
+
+    return new Promise((resolve, reject) => {
+      http.sendPostRequest(url, d).then((respData: any) => {
+        if (respData && respData.token) {
+          const token = respData.token;
+          const userId = respData.id;
+          const role = respData.role;
+          const t = 30;
+          this.util.setCookie(this.rtStorage.CURR_USER_ROLE, role, t);
+          this.util.setCookie(this.rtStorage.TOKEN_KEY, token, t);
+          this.util.setCookie(this.rtStorage.CURR_USER_ID, userId, t);
+          this.util.setCookie(this.rtStorage.LOGGEDIN_USER, respData.user, t);
+        }
+        resolve(true);
+      })
+      .catch((err) => reject(err));
+    });
 
   }
 

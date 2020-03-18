@@ -23,10 +23,26 @@ export class LoginComponent {
     if (this.loginForm.dirty && this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-      this.authService.Login(email, password)
-        .then((respData: any) => {
-          console.dir(respData.id);
-        });
+      this.authService.Login(email, password);
+      switch (this.util.getCookie(this.local.CURR_USER_ROLE)) {
+        case '3': {
+          this.route.navigateByUrl('admin')
+          break;
+        }
+        case '2': {
+          this.route.navigateByUrl('project')
+          break;
+        }
+        case '1': {
+          this.route.navigateByUrl('design')
+          break;
+        }
+        default: {
+          alert('Invalid email or password');
+          this.route.navigateByUrl('login');
+          break;
+        }
+      }
     }
   }
 }

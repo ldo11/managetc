@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,8 +11,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterComponent {
 
+
   registerForm: any;
-  constructor(private formBuilder: FormBuilder, private authService: AuthService ) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private authService: AuthService ) {
     this.registerForm = this.formBuilder.group({
       email : ['', Validators.required],
       password: ['', [Validators.required]]
@@ -22,7 +24,10 @@ export class RegisterComponent {
       const email = this.registerForm.value.email;
       const password = this.registerForm.value.password;
       this.authService.signup(email, password)
-        .then()
+        .then(_ => {
+          alert('Your account is created');
+          this.route.navigateByUrl('login');
+        })
         .catch((err) => alert('Can not register! ${err}'));
     }
   }
