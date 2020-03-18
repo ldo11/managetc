@@ -3,7 +3,10 @@ import { HttpService } from './http.service';
 import { User } from '../models/user';
 import { RtStorageService } from './rt-storage.service';
 import { UtilService } from './util.service';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +16,10 @@ export class AuthService {
   constructor(
     private httpService: HttpService,
     private util: UtilService,
-    private rtStorage: RtStorageService) {
+    private rtStorage: RtStorageService,private http: HttpClient) {
 
   }
+  
 
   signup(email: string, password: string) {
     const url = 'users/create';
@@ -52,6 +56,16 @@ export class AuthService {
 
   }
 
+
+ /* public isAuthenticated(): boolean {
+    const token =this.util.getCookie('tcm-logged-in-user-role');   
+    // Check whether the token is expired and return
+    // true or false
+    console.log('the cookie is:'+token);
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+  */
+  
   signOut() {
 
     return new Promise((resolve, reject) => {

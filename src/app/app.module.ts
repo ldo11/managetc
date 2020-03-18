@@ -22,6 +22,10 @@ import {MatTableModule} from '@angular/material/table';
 import {CdkTableModule} from '@angular/cdk/table';
 import { GrouptesterPipe } from './pipe/grouptester.pipe';
 import { HeaderComponent } from './page/header/header.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthService } from './services/auth.service';
+import { UtilService } from './services/util.service';
+
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
@@ -34,6 +38,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,8 +68,20 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatTableModule,
     CdkTableModule
+    /*JwtModule.forRoot({
+      config: {
+        tokenGetter: (tokenGetter),
+        whitelistedDomains: ['localhost:3000'],
+        blacklistedRoutes: ['localhost:3000/api/auth']
+      }
+    })
+    */
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {  constructor(public util:UtilService) { }
+ //public tokenGetter() {
+  //return this.util.getCookie('tcm-logged-in-user-role');
+//}
+}
