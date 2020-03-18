@@ -21,23 +21,20 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     // how to get param
-    // this.email = this.activatedRoute.snapshot.params['email'];
-    this.email = 'vo@gmail.com';
+    this.email = this.activatedRoute.snapshot.params['email'];
+    this.email = 'vo01@gmail.com';
     // call load data
     this.onLoadData(this.email);
   }
 
-  onSubmit() {
-    const newName = this.profile.name;
-    const newPhone = this.profile.phone;
-    const newAvatar = this.profile.avatar;
-    this.profileService.updateprofile(this.email, newName, newPhone, newAvatar);
+  onUpdateProfile(email, name, phone, avatar) {
+    this.profileService.updateprofile(email,name,phone,avatar);
+
   }
 
   onLoadData(email) {
     this.profileService.findprofile(email).then((profile: Profile) => {
       this.profile = profile;
-      console.dir(profile);
     });
   }
 
