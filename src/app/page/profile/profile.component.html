@@ -1,36 +1,36 @@
 <mat-card>
   <h2>Edit Profile</h2>
   <form class="example-form">
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="example-full-width form-group" >
       <mat-label>Avatar</mat-label>
-      <input matInput placeholder="Ex. Pizza" [value]="profile.avatar">
+      <input matInput #avatar [value]="profile.avatar">
     </mat-form-field>
     <br>
     <mat-form-field class="example-full-width">
       <mat-label>Name</mat-label>
-      <input matInput [value]="profile.name">
+      <input matInput #name [value]="profile.name">
     </mat-form-field>
     <br>
     <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
-      <input matInput [value]="profile.email" readonly>
+      <input matInput #email [value]="profile.email" readonly>
     </mat-form-field>
     <br>
     <mat-form-field class="example-full-width">
       <mat-label>Phone</mat-label>
-      <input matInput [value]="profile.phone">
+      <input matInput #phone [value]="profile.phone">
     </mat-form-field>
     <br>
     <mat-form-field class="example-full-width">
       <mat-label>Role</mat-label>
-      <input matInput [value]="profile.role" readonly>
+      <input matInput #role [value]="profile.role" readonly>
     </mat-form-field>
     <br>
     <mat-form-field class="example-full-width">
       <mat-label>Project</mat-label>
-      <input matInput [value]="profile.project" readonly>
+      <input matInput #project [value]="profile.project" readonly>
     </mat-form-field>
     <br>
-    <button mat-button color="primary" (click)="onSubmit()">Update</button>
+    <button mat-button color="primary" (click)="onUpdateProfile(email.value,name.value,phone.value,avatar.value)">Update</button>
   </form>
 </mat-card>
