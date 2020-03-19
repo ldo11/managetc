@@ -3,32 +3,30 @@
 <mat-card>
   <!-- execution result -->
   <h4>Testcase Report</h4>
-  <button mat-raised-button>Start</button>
-
-
   <!-- execution result -->
   <h4>Testcase Information</h4>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Project</mat-label>
-      <input matInput placeholder="project name" [value]="execution.project_name" readonly>
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <mat-label>Testcase</mat-label>
-      <input matInput placeholder="testcase name" [value]="execution.tc_name" readonly>
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <mat-label>Testcase Version</mat-label>
-      <input matInput placeholder="testcase version" [value]="execution.tc_version" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <mat-label>Build Number</mat-label>
-      <input matInput placeholder="build number" [value]="execution.build_number">
-    </mat-form-field>
-
+  <mat-form-field>
+    <mat-label>Version</mat-label>
+    <input matInput [value]="testcases?.tc_version" #cur_version disabled>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Design by</mat-label>
+    <input matInput [value]="testcases?.designer" disabled>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Creator</mat-label>
+    <input matInput [value]="testcases?.creator" disabled>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Reviewer</mat-label>
+    <input matInput [value]="testcases?.reviewer" disabled>
+  </mat-form-field>
+</mat-card>
     <!-- execution result -->
-    <h4>Execution Result</h4>
-    <mat-table [dataSource]="results">
+<mat-card>
+  <input matInput placeholder="Build number:(ex: 1.0)" #build_number (change)="clicked=false">
+<button mat-raised-button (click)="start(testcases.name, build_number.value); clicked=true" [disabled]="clicked">Start Execution</button>
+    <mat-table [dataSource]="testcases?.steps">
       <ng-container matColumnDef="Step">
         <mat-header-cell *matHeaderCellDef> Step </mat-header-cell>
         <mat-cell *matCellDef="let element;index as i;"> #{{ i }} </mat-cell>
@@ -43,21 +41,15 @@
       </ng-container>
       <ng-container matColumnDef="Comment">
         <mat-header-cell *matHeaderCellDef> Comment </mat-header-cell>
-        <mat-cell *matCellDef="let element;"><input matInput [value]="element.comment"></mat-cell>
+        <mat-cell *matCellDef="let element;index as i;"><input matInput [id]="'c'+i"></mat-cell>
       </ng-container>
       <ng-container matColumnDef="Execution">
         <mat-header-cell *matHeaderCellDef>Execution</mat-header-cell>
-        <mat-cell *matCellDef="let element;">
-          <mat-select #stepResult placeholder="Select result">
-            <mat-option [value]="element.result">PASSED</mat-option>
-            <mat-option [value]="element.result">FAILED</mat-option>
+        <mat-cell *matCellDef="let element;index as i;">
+          <mat-select [id] = "'r'+i" placeholder="Select result" (selectionChange)="updateRowData( $event,i, element._id)" >
+            <mat-option value="PASSED">PASSED</mat-option>
+            <mat-option value="FAILED">FAILED</mat-option>
           </mat-select>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="Update">
-        <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <button mat-button (click)="updateRowData(element)">update</button>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -65,7 +57,6 @@
     </mat-table>
     <br>
     <!-- update testcase resut -->
-    <button mat-raised-button (click)="saveresult()">Save</button>
-  </form>
+    <button mat-raised-button (click)="saveresult()">Stop</button>
 </mat-card>
 

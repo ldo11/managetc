@@ -7,30 +7,38 @@ import {HttpService} from './http.service';
 })
 export class ExecutionService {
 
-  constructor(private logger: LogService,private httpService: HttpService) { }
+  constructor(private logger: LogService, private httpService: HttpService) { }
 
-  getAllEx(){
+  getAllEx() {
     const url = 'execution/allex';
     const body = {};
-    return this.httpService.sendGetRequest(url,body);
+    return this.httpService.sendGetRequest(url, body);
   }
 
-  getExecutionId(id){
-    const url = 'execution/'+id;
+  getExecutionId(id) {
+    const url = 'execution/' + id;
     const body = {};
-    return this.httpService.sendGetRequest(url,body);
+    return this.httpService.sendGetRequest(url, body);
   }
 
-  getExecutionTestcase(testcase){
-    const url = 'execution/'+testcase;
+  getExecutionTestcase(testcase) {
+    const url = 'execution/' + testcase;
     const body = {};
-    return this.httpService.sendGetRequest(url,body);
+    return this.httpService.sendGetRequest(url, body);
   }
 
-  postExecution(tc_name,tester,tc_ver,build_number,results){
+  postExecution(tc_name, tester, tc_ver, build_number, start) {
     const url = 'execution/';
-    const body = {tc_name:tc_name, tester:tester, tc_ver:tc_ver, build_number:build_number, results:results};
-    return this.httpService.sendPostRequest(url,body);
+    const body = {tc_name, tester, tc_ver, build_number, start};
+    return this.httpService.sendPostRequest(url, body);
+  }
+  upsertStep(body) {
+    const url = 'execution/upsertStep';
+    return this.httpService.sendPostRequest(url, body);
+  }
+  endTest(body) {
+    const url = 'execution/end';
+    return this.httpService.sendPostRequest(url, body);
   }
 
 }
