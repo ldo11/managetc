@@ -28,7 +28,7 @@
     <br>
     <mat-form-field class="example-full-width">
       <mat-label>Project</mat-label>
-      <input matInput #project [value]="profile.project" readonly>
+      <input matInput #project [value]="allproject" readonly>
     </mat-form-field>
     <br>
     <button mat-button color="primary" (click)="onUpdateProfile(email.value,name.value,phone.value,avatar.value)">Update</button>

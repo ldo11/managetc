@@ -21,6 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {CdkTableModule} from '@angular/cdk/table';
 import { GrouptesterPipe } from './pipe/grouptester.pipe';
+import {GroupProjectPipe} from './pipe/groupproject.pipe';
 import { HeaderComponent } from './page/header/header.component';
 //import { JwtModule } from '@auth0/angular-jwt';
 //import { AuthService } from './services/auth.service';
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     ProjectComponent,
     PageNotFoundComponent,
     GrouptesterPipe,
-    HeaderComponent
+    HeaderComponent,
+    GroupProjectPipe
   ],
   imports: [
     RouterModule.forRoot(
