@@ -20,9 +20,9 @@ findprofile(email) {
 }
 
 
-updateprofile(email, name, phone, avatar) {
+updateprofile(email, name, phone) {
   const url = 'profile';
-  const body = {email, name, phone, avatar};
+  const body = {email, name, phone};
   return this.httpService.sendPostRequest(url, body);
 }
 

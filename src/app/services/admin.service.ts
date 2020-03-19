@@ -16,11 +16,8 @@ export class AdminService {
     return this.httpService.sendGetRequest(url, {});
   }
   activateuser(email) {
-
-
     const url = 'admin/activate/' + email;
     const body = {};
-
     return this.httpService.sendPostRequest(url, body);
   }
   deactivateuser(email) {
@@ -29,9 +26,9 @@ export class AdminService {
     return this.httpService.sendPostRequest(url, body);
   }
 
-  changerole(email, role) {
+  changerole(email, nrole) {
     const url = 'admin/role/' + email;
-    const body = {email, role};
+    const body = {role: nrole};
     return this.httpService.sendPostRequest(url, body);
   }
 }

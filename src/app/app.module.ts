@@ -24,6 +24,8 @@ import { GrouptesterPipe } from './pipe/grouptester.pipe';
 import {GroupProjectPipe} from './pipe/groupproject.pipe';
 import { HeaderComponent } from './page/header/header.component';
 import { UtilService } from './services/util.service';
+import { UserstatusPipe } from './pipe/userstatus.pipe';
+import { UserrolePipe } from './pipe/userrole.pipe';
 
 
 const appRoutes: Routes = [
@@ -53,7 +55,9 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     GrouptesterPipe,
     HeaderComponent,
-    GroupProjectPipe
+    GroupProjectPipe,
+    UserstatusPipe,
+    UserrolePipe
   ],
   imports: [
     RouterModule.forRoot(

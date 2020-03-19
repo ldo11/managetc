@@ -1,47 +1,32 @@
 <app-header></app-header>
 <mat-card>
   <h2>Edit Profile</h2>
-
-  <mat-card>
-    <mat-label>Avatar</mat-label><br>
-    <input type="file" (change)="onSelectedFile($event)">
-    <button mat-button (click)="onUploadFile()">Upload</button>
-  </mat-card>
-  <mat-card>
-    <form class="example-form">
-      <mat-form-field class="example-full-width" >
-        <mat-label>Avatar</mat-label>
-        <!--      <input type="file" #avatar [value]="profile.avatar" (change)="onSelectedFile($event)">-->
-        <input matInput #avatar [value]="profile.avatar" >
-      </mat-form-field>
-      <br>
-      <mat-form-field class="example-full-width">
-        <mat-label>Name</mat-label>
-        <input matInput #name [value]="profile.name">
-      </mat-form-field>
-      <br>
-      <mat-form-field class="example-full-width">
-        <mat-label>Email</mat-label>
-        <input matInput #email [value]="profile.email" readonly>
-      </mat-form-field>
-      <br>
-      <mat-form-field class="example-full-width">
-        <mat-label>Phone</mat-label>
-        <input matInput #phone [value]="profile.phone">
-      </mat-form-field>
-      <br>
-      <mat-form-field class="example-full-width">
-        <mat-label>Role</mat-label>
-        <input matInput #role [value]="profile.role" readonly>
-      </mat-form-field>
-      <br>
-      <mat-form-field class="example-full-width">
-        <mat-label>Project</mat-label>
-        <input matInput #project [value]="allproject" readonly>
-      </mat-form-field>
-      <br>
-      <button mat-raised-button color="primary" (click)="onUpdateProfile(email.value,name.value,phone.value,avatar.value)">Update</button>
-    </form>
-  </mat-card>
-
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput #name [value]="profile.name">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input matInput #email [value]="profile.email" readonly>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Phone</mat-label>
+      <input matInput #phone [value]="profile.phone">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Role</mat-label>
+      <input matInput #role value="{{profile.role | userrole}}" readonly>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Project</mat-label>
+      <input matInput #project [value]="allproject" readonly>
+    </mat-form-field>
+    <br>
+    <button mat-button color="primary" (click)="onUpdateProfile(email.value,name.value,phone.value)">Update</button>
+  </form>
 </mat-card>

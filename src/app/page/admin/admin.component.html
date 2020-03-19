@@ -1,60 +1,40 @@
 <app-header></app-header>
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Email</th>
-    <th>Role</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-    <th>Select new Role</th>
-    <th></th>
-  </tr>
-  <tr *ngFor="let user of users">
-
-    <td>
-      <mat-form-field>
-        <input matInput [value]="user._id">
-      </mat-form-field>
-    </td>
-
-    <td>
-      <mat-form-field>
-        <input matInput [value]="user.email">
-      </mat-form-field>
-    </td>
-
-    <td>
-      <mat-form-field>
-        <input matInput [value]="user.role">
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field>
-        <input matInput [value]="user.status">
-      </mat-form-field>
-    </td>
-
-
-    <td>
-      <button mat-button (click)=activate(user.email) >Activate</button>
-    </td>
-    <td>
-      <button mat-button (click)=deactivate(user.email)  >Deactivate</button>
-    </td>
+<mat-card>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor="let user of users">
 
       <td>
-  <mat-form-field>
-    <select matNativeControl required>
-      <option value="Tester">Tester</option>
-      <option value="Senior Tester">Senior Tester</option>
+        <mat-form-field>
+          <input matInput [value]="user._id" disabled>
+        </mat-form-field>
+      </td>
 
-    </select>
-  </mat-form-field>
-    </td>
-    <td>
-      <button mat-button (click)=changerole(user.email,user.role)  >ChangeRole</button>
-    </td>
-  </tr>
+      <td>
+        <mat-form-field>
+          <input matInput [value]="user.email" disabled>
+        </mat-form-field>
+      </td>
 
-</table>
+      <td>
+        <mat-form-field>
+          <input matInput value="{{user.role | userrole}}" disabled>
+          <button mat-button (click)="changerole(user.email, user.role)">Change Role</button>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput value="{{user.status | userstatus}}" disabled>
+          <button mat-button (click)="changestatus(user.status, user.email)">Change status</button>
+        </mat-form-field>
+      </td>
+    </tr>
+
+  </table>
+</mat-card>
+

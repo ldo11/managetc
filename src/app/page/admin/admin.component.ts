@@ -22,35 +22,31 @@ export class AdminComponent implements OnInit {
       this.users = Users;
     });
   }
-  activate(email) {
-    this.adminService.activateuser(email);
-    this.reload_user();
-  }
-
-  deactivate(email) {
-    this.adminService.deactivateuser(email);
-    this.reload_user();
-  }
-
   changerole(email, role) {
-
-    let new_role;
-    if (role === 'Tester') {
-      new_role = 'Senior Tester';
-      this.reload_user();
-    } else  if (role === 'Senior Tester') {
-      new_role = 'Tester';
-      this.reload_user();
-    } else {
-      new_role = 'Tester';
-      this.reload_user();
+    let nrole;
+    if (role === 1) {
+      nrole = 2;
     }
-
-
-    this.adminService.changerole(email, new_role);
-    this.reload_user();
+    if (role === 2) {
+      nrole = 1;
+    }
+    if (confirm('Change ' + email + ' role ?')) {
+        this.adminService.changerole(email, nrole).then(_ => {
+          this.reload_user();
+        });
+    }
+  }
+  changestatus(curstatus, email) {
+    if (confirm('Are you sure?')) {
+      if (curstatus === 1) {
+        this.adminService.deactivateuser(email).then(_ => {
+          this.reload_user();
+        });
+      } else {
+        this.adminService.activateuser(email).then(_ => {
+          this.reload_user();
+        });
+      }
+    }
   }
 }
-
-
-
