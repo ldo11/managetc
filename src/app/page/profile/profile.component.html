@@ -5,6 +5,7 @@
   <mat-card>
     <mat-label>Avatar</mat-label><br>
     <input type="file" (change)="onSelectedFile($event)">
+    <button mat-button (click)="onUploadFile()">Upload</button>
   </mat-card>
   <mat-card>
     <form class="example-form">
@@ -39,7 +40,7 @@
         <input matInput #project [value]="allproject" readonly>
       </mat-form-field>
       <br>
-      <button mat-button color="primary" (click)="onUpdateProfile(email.value,name.value,phone.value,avatar.value)">Update</button>
+      <button mat-raised-button color="primary" (click)="onUpdateProfile(email.value,name.value,phone.value,avatar.value)">Update</button>
     </form>
   </mat-card>
 

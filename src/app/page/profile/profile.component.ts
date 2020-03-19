@@ -65,6 +65,9 @@ export class ProfileComponent implements OnInit {
 
   onSelectedFile(event){
     console.log(event);
-  }
+  }//onSelectedFile
 
+  onUploadFile() {
+
+  }//onUploadFile
 }
