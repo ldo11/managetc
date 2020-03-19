@@ -5,6 +5,8 @@ import {ProfileService} from '../../services/profile.service';
 import {Profile} from '../../models/profile';
 import {ProjectsService} from "../../services/project.service";
 import {Project} from "../../models/project";
+import { RtStorageService } from '../../services/rt-storage.service';
+import { UtilService } from '../../services/util.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,10 +19,13 @@ export class ProfileComponent implements OnInit {
   profile: Profile;
   projects: Array<Project>;
   allproject:string;
+  role:string;
 
   constructor(private profileService: ProfileService,
               private activatedRoute: ActivatedRoute,
-              private projectService: ProjectsService) {
+              private projectService: ProjectsService,
+              private local: RtStorageService,
+              private util: UtilService) {
 
   }
 
@@ -28,6 +33,7 @@ export class ProfileComponent implements OnInit {
     // how to get param
     this.email = this.activatedRoute.snapshot.params['email'];
     this.email = 'vo01@gmail.com';
+    this.role = this.util.getCookie(this.local.CURR_USER_ROLE);
     // call load data
     this.onLoadData(this.email);
   }
@@ -42,7 +48,7 @@ export class ProfileComponent implements OnInit {
       this.profile = profile;
     });
 
-    this.projectService.findprojectbyemail(email).then( (Projects:Array<Project>) =>{
+    this.projectService.findprojectbyemail(email,this.role).then( (Projects:Array<Project>) =>{
       this.projects = Projects;
       console.dir(this.projects);
 
