@@ -36,23 +36,19 @@ export class ProfileComponent implements OnInit {
     this.role = this.util.getCookie(this.local.CURR_USER_ROLE);
     // call load data
     this.onLoadData(this.email);
-  }
+  }//end_ngOnInit
 
   onUpdateProfile(email, name, phone, avatar) {
     this.profileService.updateprofile(email,name,phone,avatar);
 
-  }
+  }//end_onUpdateProfile
 
   onLoadData(email) {
     this.profileService.findprofile(email).then((profile: Profile) => {
       this.profile = profile;
     });
 
-<<<<<<< HEAD
-    this.projectService.findprojectbyemail(email,this.role).then( (Projects:Array<Project>) =>{
-=======
     this.projectService.findprojectbyemail(email,'1').then( (Projects:Array<Project>) =>{
->>>>>>> afd1cd1ddcedc638bb53724c90fd55dca73386d8
       this.projects = Projects;
       console.dir(this.projects);
 
@@ -65,6 +61,10 @@ export class ProfileComponent implements OnInit {
       str = str.substr(2,len-2);
       this.allproject = str;
     });
+  }//end_onLoadData()
+
+  onSelectedFile(event){
+    console.log(event);
   }
 
 }
