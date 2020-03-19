@@ -23,8 +23,6 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { GrouptesterPipe } from './pipe/grouptester.pipe';
 import {GroupProjectPipe} from './pipe/groupproject.pipe';
 import { HeaderComponent } from './page/header/header.component';
-//import { JwtModule } from '@auth0/angular-jwt';
-//import { AuthService } from './services/auth.service';
 import { UtilService } from './services/util.service';
 
 
@@ -36,7 +34,6 @@ const appRoutes: Routes = [
   { path: 'design', component: DesignComponent },
   { path: 'design/:p', component: DesignComponent },
   { path: 'design/:p/:tc', component: DesignComponent },
-  { path: 'execution', component: ExecutionComponent },
   { path: 'execution/:tc', component: ExecutionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -85,8 +82,6 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {  constructor(public util:UtilService) { }
- //public tokenGetter() {
-  //return this.util.getCookie('tcm-logged-in-user-role');
-//}
+export class AppModule {  constructor(public util: UtilService) { }
+
 }

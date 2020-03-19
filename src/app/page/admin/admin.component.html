@@ -1,4 +1,4 @@
-
+<app-header></app-header>
 <table>
   <tr>
     <th>ID</th>
@@ -11,19 +11,19 @@
     <th></th>
   </tr>
   <tr *ngFor="let user of users">
-    
+
     <td>
       <mat-form-field>
         <input matInput [value]="user._id">
       </mat-form-field>
     </td>
-    
+
     <td>
       <mat-form-field>
         <input matInput [value]="user.email">
       </mat-form-field>
     </td>
-    
+
     <td>
       <mat-form-field>
         <input matInput [value]="user.role">
@@ -35,7 +35,7 @@
       </mat-form-field>
     </td>
 
-    
+
     <td>
       <button mat-button (click)=activate(user.email) >Activate</button>
     </td>
@@ -48,7 +48,7 @@
     <select matNativeControl required>
       <option value="Tester">Tester</option>
       <option value="Senior Tester">Senior Tester</option>
-     
+
     </select>
   </mat-form-field>
     </td>
@@ -56,5 +56,5 @@
       <button mat-button (click)=changerole(user.email,user.role)  >ChangeRole</button>
     </td>
   </tr>
- 
+
 </table>

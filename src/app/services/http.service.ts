@@ -220,15 +220,9 @@ export class HttpService {
   }
 
   buildRequestHeader() {
-
-    let language = this.util.getCookie('CURR_LANG');
-    if (!language) {
-      language = 'en';
-    }
-
     return new HttpHeaders()
     .append('Accept', 'application/json')
-    .append('Accept-Language', language)
+    .append('Accept-Language', 'en')
     .append('Authorization', this.getToken());
   }
 
@@ -240,7 +234,6 @@ export class HttpService {
     } else {
       this.logger.warn('[http-service][post] no token.');
     }
-
     return auth;
   }
 

@@ -69,7 +69,7 @@ export class DesignComponent implements OnInit {
   }
   loadtc(tcname) {
     this.designService.findtestcasebyname(tcname).then((tc: Testcase) => {
-      this.currenttc = tc[0];
+      this.currenttc = tc;
       if (this.currenttc.designer === '') {
         this.currenttc.designer = this.util.getCookie(this.local.CURR_USER_EMAIL);
       }
@@ -81,74 +81,83 @@ export class DesignComponent implements OnInit {
     // tslint:disable-next-line:radix
     let newver = parseFloat(this.currenttc.tc_version) + 0.01;
     let body;
-    switch (nstatus) {
-      case '1':
-        alert('You forget update status');
-        break;
-      case '2':
-        body = {
-          name: tcname,
-          tc_version: newver.toString(),
-          status: nstatus,
-          designer: this.util.getCookie(this.local.CURR_USER_EMAIL)
-        };
-        this.designService.updatetestcase(tcname, body).then().catch((e) => alert(e));
-        break;
-      case '3':
-        body = {
-          name: tcname,
-          tc_version: newver.toString(),
-          status: nstatus,
-          designer: this.util.getCookie(this.local.CURR_USER_EMAIL)
-        };
-        this.designService.updatetestcase(tcname, body).then().catch((e) => alert(e));
-        break;
-      case '4':
-        if (this.util.getCookie(this.local.CURR_USER_ROLE) !== '2') {
-          alert('You do NOT have permission to review testcase');
-        } else {
-          // tslint:disable-next-line:radix
-          newver = parseInt(this.currenttc.tc_version) + 1;
+    if (this.currenttc.status !== '4' || this.role === '2') {
+      switch (nstatus) {
+        case '2':
           body = {
             name: tcname,
             tc_version: newver.toString(),
             status: nstatus,
-            designer: this.currenttc.designer,
-            reviewer: this.util.getCookie(this.local.CURR_USER_EMAIL)
+            designer: this.util.getCookie(this.local.CURR_USER_EMAIL)
           };
           this.designService.updatetestcase(tcname, body).then().catch((e) => alert(e));
-        }
-        break;
-      default:
-        alert('You have no permission to update');
+          break;
+        case '3':
+          body = {
+            name: tcname,
+            tc_version: newver.toString(),
+            status: nstatus,
+            designer: this.util.getCookie(this.local.CURR_USER_EMAIL)
+          };
+          this.designService.updatetestcase(tcname, body).then().catch((e) => alert(e));
+          break;
+        case '4':
+          if (this.util.getCookie(this.local.CURR_USER_ROLE) !== '2') {
+            alert('You do NOT have permission to review testcase');
+          } else {
+            // tslint:disable-next-line:radix
+            newver = parseInt(this.currenttc.tc_version) + 1;
+            body = {
+              name: tcname,
+              tc_version: newver.toString(),
+              status: nstatus,
+              designer: this.currenttc.designer,
+              reviewer: this.util.getCookie(this.local.CURR_USER_EMAIL)
+            };
+            this.designService.updatetestcase(tcname, body).then().catch((e) => alert(e));
+          }
+          break;
+        default:
+          alert('You have no permission to update');
+      }
+      this.loadtc(this.tselected);
+    } else {
+      alert('Test case was approved so you can not change!');
     }
-    this.loadtc(this.tselected);
   }
   addstep(action, expected) {
-    if (action.length === 0 || expected.length === 0) {
-      alert('Please enter action and expected for new step');
-    } else {
-      const b = {
-        action, expected
-      };
-      this.steps.push(new Step( action, expected));
-      this.designService.addteststep(this.currenttc.name, b).then(_ => {
+    if (this.currenttc.status !== '4' || this.role === '2') {
+      if (action.length === 0 || expected.length === 0) {
+        alert('Please enter action and expected for new step');
+      } else {
+        const b = {
+          action, expected
+        };
+        this.steps.push(new Step( action, expected));
+        this.designService.addteststep(this.currenttc.name, b).then(_ => {
           const version = this.currenttc.tc_version + 0.01;
-          this.savetc(this.currenttc.name, this.currenttc.status);
-      });
-      this.table.renderRows();
+          this.savetc(this.currenttc.name, '2');
+        });
+        this.table.renderRows();
+      }
+      this.loadtc(this.tselected);
+    } else {
+      alert('Test case was approved so you can not change!');
     }
-    this.loadtc(this.tselected);
   }
   deleteRowData( ele ) {
-    this.steps = this.steps.filter((value, key) => {
-      return value._id !== ele._id;
-    });
-    this.designService.removeStep(this.currenttc._id, ele._id).then(_ => {
-      const version = this.currenttc.tc_version + 0.01;
-      this.savetc(this.currenttc.name, this.currenttc.status);
-    });
-    this.loadtc(this.tselected);
+    if (this.currenttc.status !== '4' || this.role === '2') {
+      this.steps = this.steps.filter((value, key) => {
+        return value._id !== ele._id;
+      });
+      this.designService.removeStep(this.currenttc._id, ele._id).then(_ => {
+        const version = this.currenttc.tc_version + 0.01;
+        this.savetc(this.currenttc.name, this.currenttc.status);
+      });
+      this.loadtc(this.tselected);
+    } else {
+      alert('Test case was approved so you can not change!');
+    }
   }
   changeproject(p) {
     this.tselected = '';

@@ -48,7 +48,11 @@ export class ProfileComponent implements OnInit {
       this.profile = profile;
     });
 
+<<<<<<< HEAD
     this.projectService.findprojectbyemail(email,this.role).then( (Projects:Array<Project>) =>{
+=======
+    this.projectService.findprojectbyemail(email,'1').then( (Projects:Array<Project>) =>{
+>>>>>>> afd1cd1ddcedc638bb53724c90fd55dca73386d8
       this.projects = Projects;
       console.dir(this.projects);
 

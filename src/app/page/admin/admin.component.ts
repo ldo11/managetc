@@ -13,44 +13,41 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.reload_user();
-    
+
   }
-  reload_user(){
+
+  reload_user() {
     this.adminService.getalluser().then((Users: Array<User>) => {
       console.dir(Users);
       this.users = Users;
-    })
+    });
   }
-  activate(email){
+  activate(email) {
     this.adminService.activateuser(email);
     this.reload_user();
   }
 
-  deactivate(email){
+  deactivate(email) {
     this.adminService.deactivateuser(email);
     this.reload_user();
   }
 
-  changerole(email,role){
-    
-    let new_role;
-    if(role==='Tester')
-    {
-      new_role='Senior Tester';
-      this.reload_user();
-    } else  if(role==='Senior Tester')
-    {
-      new_role='Tester';
-      this.reload_user();
-    }
-    else 
-    {
-      new_role='Tester';
-      this.reload_user();
-    }
-    
+  changerole(email, role) {
 
-    this.adminService.changerole(email,new_role);
+    let new_role;
+    if (role === 'Tester') {
+      new_role = 'Senior Tester';
+      this.reload_user();
+    } else  if (role === 'Senior Tester') {
+      new_role = 'Tester';
+      this.reload_user();
+    } else {
+      new_role = 'Tester';
+      this.reload_user();
+    }
+
+
+    this.adminService.changerole(email, new_role);
     this.reload_user();
   }
 }

@@ -3,10 +3,7 @@ import { HttpService } from './http.service';
 import { User } from '../models/user';
 import { RtStorageService } from './rt-storage.service';
 import { UtilService } from './util.service';
-//import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +13,10 @@ export class AuthService {
   constructor(
     private httpService: HttpService,
     private util: UtilService,
-    private rtStorage: RtStorageService,private http: HttpClient) {
+    private rtStorage: RtStorageService, private http: HttpClient) {
 
   }
-  
+
 
   signup(email: string, password: string) {
     const url = 'users/create';
@@ -67,15 +64,17 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
   */
-  
+
   signOut() {
 
     return new Promise((resolve, reject) => {
 
       this.util.eraseCookie(this.rtStorage.LOGGEDIN_USER);
       this.util.eraseCookie(this.rtStorage.CURR_USER_ID);
+      this.util.eraseCookie(this.rtStorage.CURR_USER_ROLE);
+      this.util.eraseCookie(this.rtStorage.CURR_USER_EMAIL);
       this.util.eraseCookie(this.rtStorage.TOKEN_KEY);
-
+      this.util.eraseCookie(this.rtStorage.TOKEN_TYPE_KEY);
 
       setTimeout(resolve.bind(null, true), 100);
     });
@@ -94,7 +93,6 @@ export class AuthService {
   }
 
   getToken(): string {
-
     return this.util.getCookie(this.rtStorage.TOKEN_KEY);
   }
 
