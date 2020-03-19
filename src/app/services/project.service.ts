@@ -12,8 +12,8 @@ export class ProjectsService {
 
   }
 
- findprojectbyemail(email) {
-  const url = 'projects/e/' + email;
+ findprojectbyemail(email, role) {
+  const url = 'projects/e/' + email + '/' + role;
   const body = {};
   return this.httpService.sendGetRequest(url, body);
 }

@@ -6,6 +6,7 @@ export class Testcase {
   tc_version: string;
   status: string;
   creator: string;
+  designer: string;
   reviewer: string;
   steps: Step[];
   constructor(name, p, c) {

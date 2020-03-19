@@ -6,7 +6,9 @@ import {ProjectsService} from '../../services/project.service';
 import {DesignService} from '../../services/design.service';
 import {Step} from '../../models/step';
 import {MatTable} from '@angular/material/table';
-import {Router} from '@angular/router';
+import { RtStorageService } from '../../services/rt-storage.service';
+import { UtilService } from '../../services/util.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-design',
@@ -18,34 +20,109 @@ export class DesignComponent implements OnInit {
   testcases: Array<Testcase>;
   currenttc: Testcase;
   steps: Array<Step>;
+  role;
   pselected;
   tselected;
-  no = 0;
+  stselected;
+  liststatuts = [{k: '1', v: 'New'}, {k: '2', v: 'In-progress'} , {k: '3', v: 'Ready for review'}, {k: '4', v: 'Approved'}];
   displayedColumns = ['Step', 'Action', 'Expected', 'Delete'];
   @ViewChild(MatTable, { static: true}) table: MatTable<any>;
 
-  constructor(private router: Router, private projectService: ProjectsService, private designService: DesignService) { }
+  constructor(private local: RtStorageService,
+              private util: UtilService,
+              private router: Router,
+              private arouter: ActivatedRoute,
+              private projectService: ProjectsService,
+              private designService: DesignService) { }
 
   ngOnInit(): void {
-    const email = 'luat01@gmail.com';
-    this.projectService.findprojectbyemail(email).then((Projects: Array<Project>) => {
+    const email = this.util.getCookie(this.local.CURR_USER_EMAIL);
+    this.pselected = this.arouter.snapshot.paramMap.get('p');
+    this.tselected = this.arouter.snapshot.paramMap.get('tc');
+    this.role = this.util.getCookie(this.local.CURR_USER_ROLE);
+    this.loadproject(email);
+  }
+  loadproject(email) {
+    this.projectService.findprojectbyemail(email, this.role ).then((Projects: Array<Project>) => {
       if (Projects.length === 0) {
         alert('You are not assign to any project! Please contact your leader');
         this.router.navigateByUrl('/login');
       }
-      this.pselected = Projects[0]._id;
       this.projects = Projects;
-      this.loadtc(this.projects[0].name);
+      if (this.pselected === null) {
+        this.pselected = this.projects[0].name;
+      }
+      this.gettc(this.pselected);
     });
   }
-  loadtc(projectname) {
-    console.log(projectname);
+  gettc(projectname) {
     this.designService.findtcinproject(projectname).then((Testcases: Array<Testcase>) => {
-      this.testcases = Testcases;
-      this.tselected = this.testcases[0]._id;
-      this.currenttc = this.testcases[0];
-      this.steps = this.currenttc.steps;
+      if (Testcases.length > 0) {
+        this.testcases = Testcases;
+        if (this.tselected === null) {
+          this.tselected = this.testcases[0].name;
+          this.loadtc(this.testcases[0].name);
+        }
+        this.loadtc(this.tselected);
+      }
     });
+  }
+  loadtc(tcname) {
+    this.designService.findtestcasebyname(tcname).then((tc: Testcase) => {
+      this.currenttc = tc[0];
+      if (this.currenttc.designer === '') {
+        this.currenttc.designer = this.util.getCookie(this.local.CURR_USER_EMAIL);
+      }
+      this.steps = this.currenttc.steps;
+      this.stselected = this.currenttc.status;
+    });
+  }
+  savetc(tcname, nstatus) {
+    // tslint:disable-next-line:radix
+    let newver = parseFloat(this.currenttc.tc_version) + 0.01;
+    let body;
+    switch (nstatus) {
+      case '1':
+        alert('You forget update status');
+        break;
+      case '2':
+        body = {
+          name: tcname,
+          tc_version: newver.toString(),
+          status: nstatus,
+          designer: this.util.getCookie(this.local.CURR_USER_EMAIL)
+        };
+        this.designService.updatetestcase(tcname, body).then().catch((e) => alert(e));
+        break;
+      case '3':
+        body = {
+          name: tcname,
+          tc_version: newver.toString(),
+          status: nstatus,
+          designer: this.util.getCookie(this.local.CURR_USER_EMAIL)
+        };
+        this.designService.updatetestcase(tcname, body).then().catch((e) => alert(e));
+        break;
+      case '4':
+        if (this.util.getCookie(this.local.CURR_USER_ROLE) !== '2') {
+          alert('You do NOT have permission to review testcase');
+        } else {
+          // tslint:disable-next-line:radix
+          newver = parseInt(this.currenttc.tc_version) + 1;
+          body = {
+            name: tcname,
+            tc_version: newver.toString(),
+            status: nstatus,
+            designer: this.currenttc.designer,
+            reviewer: this.util.getCookie(this.local.CURR_USER_EMAIL)
+          };
+          this.designService.updatetestcase(tcname, body).then().catch((e) => alert(e));
+        }
+        break;
+      default:
+        alert('You have no permission to update');
+    }
+    this.loadtc(this.tselected);
   }
   addstep(action, expected) {
     if (action.length === 0 || expected.length === 0) {
@@ -55,19 +132,28 @@ export class DesignComponent implements OnInit {
         action, expected
       };
       this.steps.push(new Step( action, expected));
-      this.designService.addteststep(this.currenttc.name, b).then();
+      this.designService.addteststep(this.currenttc.name, b).then(_ => {
+          const version = this.currenttc.tc_version + 0.01;
+          this.savetc(this.currenttc.name, this.currenttc.status);
+      });
       this.table.renderRows();
     }
+    this.loadtc(this.tselected);
   }
   deleteRowData( ele ) {
     this.steps = this.steps.filter((value, key) => {
       return value._id !== ele._id;
     });
-    console.log(ele._id);
-    this.designService.removeStep(this.currenttc._id, ele._id).then();
+    this.designService.removeStep(this.currenttc._id, ele._id).then(_ => {
+      const version = this.currenttc.tc_version + 0.01;
+      this.savetc(this.currenttc.name, this.currenttc.status);
+    });
+    this.loadtc(this.tselected);
   }
   changeproject(p) {
-    this.loadtc(p);
+    this.tselected = '';
+    this.gettc(p);
   }
+
 
 }

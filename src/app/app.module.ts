@@ -34,7 +34,10 @@ const appRoutes: Routes = [
   { path: 'profile/:email', component: ProfileComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'design', component: DesignComponent },
+  { path: 'design/:p', component: DesignComponent },
+  { path: 'design/:p/:tc', component: DesignComponent },
   { path: 'execution', component: ExecutionComponent },
+  { path: 'execution/:tc', component: ExecutionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', component: PageNotFoundComponent }

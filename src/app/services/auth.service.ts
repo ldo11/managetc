@@ -42,11 +42,13 @@ export class AuthService {
         if (respData && respData.token) {
           const token = respData.token;
           const userId = respData.id;
+          const userEmail = respData.email;
           const role = respData.role;
-          const t = 30;
+          const t = 3000;
           this.util.setCookie(this.rtStorage.CURR_USER_ROLE, role, t);
           this.util.setCookie(this.rtStorage.TOKEN_KEY, token, t);
           this.util.setCookie(this.rtStorage.CURR_USER_ID, userId, t);
+          this.util.setCookie(this.rtStorage.CURR_USER_EMAIL, userEmail, t);
           this.util.setCookie(this.rtStorage.LOGGEDIN_USER, respData.user, t);
         }
         resolve(true);
