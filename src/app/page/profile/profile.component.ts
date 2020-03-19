@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
       this.profile = profile;
     });
 
-    this.projectService.findprojectbyemail(email).then( (Projects:Array<Project>) =>{
+    this.projectService.findprojectbyemail(email,'1').then( (Projects:Array<Project>) =>{
       this.projects = Projects;
       console.dir(this.projects);
 
