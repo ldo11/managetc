@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import { MaterialModule } from './core/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './page/login/login.component';
@@ -57,7 +57,7 @@ const appRoutes: Routes = [
     HeaderComponent,
     GroupProjectPipe,
     UserstatusPipe,
-    UserrolePipe
+    UserrolePipe,
   ],
   imports: [
     RouterModule.forRoot(
@@ -73,7 +73,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatSelectModule,
     MatTableModule,
-    CdkTableModule
+    CdkTableModule,
     /*JwtModule.forRoot({
       config: {
         tokenGetter: (tokenGetter),
