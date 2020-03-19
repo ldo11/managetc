@@ -4,8 +4,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import { MaterialModule } from './core/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './page/login/login.component';
@@ -27,21 +27,6 @@ import { UtilService } from './services/util.service';
 import { UserstatusPipe } from './pipe/userstatus.pipe';
 import { UserrolePipe } from './pipe/userrole.pipe';
 
-
-const appRoutes: Routes = [
-  { path: 'admin', component: AdminComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'profile/:email', component: ProfileComponent },
-  { path: 'project', component: ProjectComponent },
-  { path: 'design', component: DesignComponent },
-  { path: 'design/:p', component: DesignComponent },
-  { path: 'design/:p/:tc', component: DesignComponent },
-  { path: 'execution/:tc', component: ExecutionComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: '**', component: PageNotFoundComponent }
-];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,12 +43,9 @@ const appRoutes: Routes = [
     GroupProjectPipe,
     UserstatusPipe,
     UserrolePipe,
+
   ],
   imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      {enableTracing: true} // <-- debugging purposes only
-    ),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -74,18 +56,8 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatTableModule,
     CdkTableModule,
-    /*JwtModule.forRoot({
-      config: {
-        tokenGetter: (tokenGetter),
-        whitelistedDomains: ['localhost:3000'],
-        blacklistedRoutes: ['localhost:3000/api/auth']
-      }
-    })
-    */
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
-export class AppModule {  constructor(public util: UtilService) { }
-
-}
+export class AppModule {}
